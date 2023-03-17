@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Nav from './navC'
 import Vid from './vidplayer'
+import Slider from './slider'
 import Cont from './footer'
 import Container from '@mui/material/Container'
 
@@ -13,8 +14,10 @@ export default function Home() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
-                    <Vid/>
+            <div className='slider-vid-container'>
+                <Vid />
+                <Slider/>
+            </div>
             <div className='main-container'>
                 <Container maxWidth="xl">
                     <Nav/>
