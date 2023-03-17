@@ -407,7 +407,6 @@ Navbar{
 .main {
   text-align: center;
   height: 100vh;
-  z-index: 10;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -423,8 +422,21 @@ Navbar{
 }
 
 .wrapper{
-    margin-top: 995px;
+    margin-top: 1000px;
 }
+
+
+.slider-papi{
+
+  z-index: 10;
+    margin-top: 770px;
+}
+
+.slider-papi img{
+  height: 450px;
+  width: 500px;
+}
+
 
 
 .image img{
