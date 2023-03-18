@@ -3,6 +3,7 @@ import Nav from './navC'
 import Vid from './vidplayer'
 import Slider from './slider'
 import Cont from './footer'
+import Cont1 from './container1'
 import Container from '@mui/material/Container'
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
                 <Container maxWidth="xl">
                     <Nav/>
                 </Container>
+                <Cont1 />
                 <Cont/>
             </div>
         </>
