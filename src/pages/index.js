@@ -4,6 +4,7 @@ import Vid from './vidplayer'
 import Slider from './slider'
 import Cont from './footer'
 import Cont1 from './container1'
+import Cont2 from './container2'
 import Container from '@mui/material/Container'
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
                     <Nav/>
                 </Container>
                 <Cont1 />
+                <Cont2 />
                 <Cont/>
             </div>
         </>

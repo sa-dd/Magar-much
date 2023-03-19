@@ -6,7 +6,7 @@ export default function Container_ad1(){
             </video>
         </div>
         <div className="ad1-block">
-            <span className="punchline">Taste Something Different</span>
+            <span className="punchline">Taste Something Different.</span>
             <div className="header">
                 <span className="header1">Just Bite Into</span>
                 <span className="header2">Chicken.</span>
