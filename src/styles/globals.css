@@ -118,6 +118,7 @@ a {
     text-decoration: none;
 }
 
+/* nav bar starts here */
 nav {
     display: flex;
     flex-direction: column;
@@ -129,11 +130,26 @@ nav {
     height: 230px;
     transition: transform .5s,-webkit-transform .5s;
     z-index: 100;
+
+    transition: .5s;
 }
 
 Navbar{
     overflow: visible !important;
 }
+
+.no-login{
+    transition: .5s;
+    translate: 0px -70px;
+}
+
+.no-nav{
+
+    transition: .5s;
+    translate: 0px -200px;
+}
+
+/* Here is the upper part of navbar that accomodates the login button */
 
 .login-sub{
     display: flex;
@@ -198,6 +214,8 @@ Navbar{
   transform: scaleX(1);
   transform-origin: bottom left;
 }
+
+/* this is the second component of the navbar that accomodates different routes and their respectives buttons along with the logo*/
 
 .container-inner{
     display: flex;
@@ -301,6 +319,10 @@ Navbar{
     position: relative;
     top: -.1em;
 }
+
+
+/* this is the video container */
+
 .vid-holder{
     width: 100%;
     height: 100%;
@@ -330,7 +352,7 @@ Navbar{
     display: flex;
     flex-direction: column;
     max-width: 100%;
-    height: 2000px;
+    height: 3000px;
     justify-content: space-between;
 }
 
@@ -551,6 +573,18 @@ Navbar{
 .button:hover{
     width: 32%;
     height: 12%;
+}
+
+.cont_ad-2{
+    background-color: orange;
+    display: flex;
+    font-family: "block-pro-condensed";
+    font-size: 100px;
+    color: black;
+    width: 100%;
+    height: 730px;
+    margin-top: 200px;
+
 }
 
 @media (prefers-color-scheme: dark) {

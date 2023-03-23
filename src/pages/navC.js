@@ -1,8 +1,46 @@
+import { flattenOptionGroups } from '@mui/base';
 import Container from '@mui/material/Container'
-import Image from 'next/image'
+import {useEffect, useState} from 'react'
 
 export default function Nav(){
-    return <nav className="">
+    const [stickyClass, setSticky] = useState("");
+
+    useEffect ( () => {
+
+        let oldDir = 0;
+        let flag = false;
+        const stickyNav = () => {
+
+            if(window != undefined){
+                if (window.scrollY == 0){
+                    setSticky("");
+                }
+                else if (window.scrollY > 220) {
+                    setSticky("no-nav");
+                    flag = true;
+                }
+                else if (window.scrollY > 40) {
+                    setSticky("no-login");
+                }
+
+                if(window.scrollY < oldDir && flag){
+                    setSticky("no-login");
+                    flag = false;
+                }
+                console.log(`old dir ${oldDir}`);
+                oldDir = window.scrollY;
+
+            }
+
+            console.log(window.scrollY);
+        }
+        window.addEventListener("scroll", stickyNav);
+        return () =>{
+            window.removeEventListener("scroll", stickyNav);
+        }
+    }, []);
+
+    return <nav className={`${stickyClass}`}>
         <Container maxWidth="xl"> 
             <div className="login-sub"> 
                 <div className="login-sub-icons">

@@ -6,8 +6,10 @@ import Cont from './footer'
 import Cont1 from './container1'
 import Cont2 from './container2'
 import Container from '@mui/material/Container'
+import {useEffect, useState} from 'react'
 
 export default function Home() {
+
     return (
         <>
             <Head>
