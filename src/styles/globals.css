@@ -388,6 +388,64 @@ Navbar{
     background-color: #121313;
 }
 
+
+.box2{
+    display: flex;
+    flex-direction: column;
+    font-family: "plakkta";
+    color: black;
+    font-size: 50px;
+    justify-content: space-around;
+    width:80% ;
+    line-height: 60px;
+    height: 100%;
+    padding-left: 60px;
+}
+
+.box2-heading{
+    color: white;
+    padding-top: 50px;
+}
+
+.box2-heading span{
+    text-decoration: underline;
+    text-decoration-thickness: 5px;
+    text-underline-offset: 8px;
+    text-decoration-color: white;
+}
+
+.box2-copyright{
+    display: flex;
+    flex-direction: column;
+    color:#979797;
+    font-family:"londrina";
+    font-size:20px;
+    font-weight: bolder ;
+}
+
+.box2-copyright span{
+    height: 30%;
+}
+
+.box2-icons{
+    display: flex;
+    width: 80%;
+    height: 20%;
+    color:#979797;
+    justify-content: space-between;
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+.box2-icons span:hover{
+    color:white;
+    cursor: pointer;
+
+    transition: .6s;
+}
+
+
+
 .box1{
     display: flex;
     flex-direction: column;
@@ -404,6 +462,8 @@ Navbar{
     color: #fff;
     margin-left: 60px;
     text-decoration-line: underline;
+    text-decoration-thickness: 5px   ;
+    text-underline-offset: 9px;
 }
 .box1-para{
 
@@ -414,6 +474,7 @@ Navbar{
     margin-bottom: 20px;
     font-family:'roboto-reg';
     font-weight: 800px;
+    padding-top: 30px;
 }
 
 .box1-sign{
@@ -586,6 +647,8 @@ Navbar{
     margin-top: 200px;
 
 }
+
+
 
 @media (prefers-color-scheme: dark) {
     html {
