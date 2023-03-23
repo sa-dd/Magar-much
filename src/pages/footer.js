@@ -4,7 +4,17 @@ import {faFacebook, faInstagram, faTwitter, faYoutube} from '@fortawesome/free-b
 export default function Contact(){
     return <div className='footer-mam'>
         <div className="footer-contact">
-
+            <div className='footer-contact-box'>
+                <span className='logo-footer' ><img src='/logo.svg' alt='logo-haha' /> </span>
+                <div className='list'>
+                <span> FAQ</span>
+                <span> Contact US</span> 
+                <span>Delivery </span>
+                <span> Feedback</span>
+                <span> Download App</span>
+                <span> Terms & Condition</span>
+                </div>
+            </div>
         </div>
         <div className="footer-contact2">
             <div className="contact2-box1">
@@ -31,7 +41,7 @@ export default function Contact(){
                 <span><FontAwesomeIcon icon={faYoutube} /> </span>
                     </span>
                     <span className="box2-copyright"> 
-                        <span> Delivery powered by CD 70 </span>
+                        <span> Delivery powered by  <span>  CD 70 </span> </span>
                         <span> Copyright © 2023 Magar Munchh Pakistan </span>
                     </span>
                 </div>

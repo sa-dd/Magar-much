@@ -361,11 +361,62 @@ Navbar{
     max-width: 100%;
     height: 400px;
     margin-top: 700px;
+    overflow-y: hidden;
 }
 
 .footer-contact{
     width:40%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.logo-footer{
+   display: flex; 
+   flex-direction: column;
+   justify-content: center;
+   margin-left: 100px;
+}
+.logo-footer img{
+    width: 150px;
+    height: 150px;
+}
+
+
+
+.footer-contact-box{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.footer-contact-box .list{
+    display: flex;
+    flex-direction: column;
+    font-family: "block-pro-regular";
+    font-size: 30px;
+    justify-content: space-around;
+    align-items: space-around;
+    height: 290px;
+    width: 35%;
+    margin-right: 50px;
+
+}
+.footer-contact-box .list span{
+
+    color:  #c2beb8 ;
+    cursor: pointer;
+    
+}
+.footer-contact-box .list span:hover{
+
+    color:  white;
+   transition: .6s; 
+}
+
+
+
+
 
 .footer-contact2{
     display: flex;
@@ -408,10 +459,16 @@ Navbar{
 }
 
 .box2-heading span{
+    color: orange;
     text-decoration: underline;
     text-decoration-thickness: 5px;
     text-underline-offset: 8px;
+    text-decoration-color: orange;
+}
+
+.box2-heading span:hover{
     text-decoration-color: white;
+    cursor: pointer;
 }
 
 .box2-copyright{
@@ -426,6 +483,14 @@ Navbar{
 .box2-copyright span{
     height: 30%;
 }
+
+.box2-copyright span span{
+    color: #eab44f ;
+    font-family: "block-pro-regular";
+    font-size: 22px;
+    letter-spacing: 1px;
+}
+
 
 .box2-icons{
     display: flex;
@@ -464,27 +529,44 @@ Navbar{
     text-decoration-line: underline;
     text-decoration-thickness: 5px   ;
     text-underline-offset: 9px;
+    text-decoration-color: orange;
+}
+
+.box1-heading:hover{
+    
+    text-decoration-color: white;
+    cursor: pointer;
 }
 .box1-para{
 
     color:gray ;
     margin-left: 60px;
     font-size: 21.5px;
-    width: 90%;
+    width: 70%;
     margin-bottom: 20px;
     font-family:'roboto-reg';
     font-weight: 800px;
-    padding-top: 30px;
+    padding-top: 45px;
 }
 
 .box1-sign{
-    color: #cadbd5;
-    margin-bottom: 10px;
+    color:  #c2beb8 ;
     margin-left: 60px;
     width: 50%;
     font-size: 35px;
+    padding-top: 30px;
+
+    transition: .9s;
 }
 
+.box1-sign:hover{
+    color:white;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 4px;
+    transition: .9s;
+}
 
 .slider-papi{
 
