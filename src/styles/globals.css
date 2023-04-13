@@ -740,6 +740,7 @@ Navbar{
 }
 .about-cont{
     display: flex;
+    flex-direction: column;
     width : 100%;
     height: 3000px;
     justify-content: center;
@@ -751,7 +752,6 @@ Navbar{
     height: 500px;
     font-family: "block-pro-regular";
     font-size: 40px;
-    margin-top: 900px;
     color: black;
     text-align: center;
     display: flex;
