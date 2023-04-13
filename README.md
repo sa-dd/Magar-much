@@ -5,6 +5,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
+#Start backend server
+cd backend
+npm install
+npm start
+
+#back to main directory
+cd ..
+#start frontend server
+npm install
 npm run dev
 # or
 yarn dev
