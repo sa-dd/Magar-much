@@ -422,6 +422,7 @@ async function getDeliveryBoys() {
     try {
         let pool = await sql.connect(config);
         let deliveryboys = await pool.request().query("SELECT * from DeliveryBoy");
+        return deliveryboys.recordsets;
 
     }
     catch (error) {
