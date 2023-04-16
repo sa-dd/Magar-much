@@ -857,6 +857,136 @@ async function deleteAdminUser(id) {
 }
 
 
+//function to get all reviews info
+
+
+async function getReviewInfo() {
+    try {
+        let pool = await sql.connect(config);
+        let reviews = await pool.request().query("EXEC GetAllReviews");
+        return reviews.recordsets;
+    }
+
+    catch (error) {
+        console.log(error);
+    }
+
+}
+
+
+//function to get all reviews
+
+// CREATE TABLE Review (
+//     ID INT IDENTITY(1,1) PRIMARY KEY,
+//     CustomerID INT NOT NULL FOREIGN KEY REFERENCES Customer(ID),
+//     Rating INT NOT NULL,
+//     Comment VARCHAR(500),
+//     ReviewDate DATETIME NOT NULL DEFAULT GETDATE(),
+//     CONSTRAINT CK_Review_Rating CHECK (Rating >= 1 AND Rating <= 5)
+// );
+
+async function getReviews() {
+    try {
+        let pool = await sql.connect(config);
+        let reviews = await pool.request().query("SELECT * from Review");
+        return reviews.recordsets;
+    }
+
+    catch (error) {
+        console.log(error);
+    }
+
+}
+
+//function to get a review by id
+
+async function getReview(id) {
+    try {
+        let pool = await sql.connect(config);
+        let review = await pool.request()
+            .input('input_parameter', sql.Int, id)
+            .query("SELECT * from Review where ID = @input_parameter");
+        return review.recordsets;
+
+    }
+
+    catch (error) {
+        console.log(error);
+    }
+
+}
+
+//function to add a review
+
+async function addReview(review) {
+
+    try {
+        let pool = await sql.connect(config);
+        let insertreview = await pool.request()
+            .input('CustomerID', sql.Int, review.CustomerID)
+            .input('Rating', sql.Int, review.Rating)
+            .input('Comment', sql.VarChar, review.Comment)
+            .query("INSERT INTO Review (CustomerID, Rating, Comment) VALUES (@CustomerID, @Rating, @Comment)");
+
+    }
+    catch (err) {
+        console.log(err);
+
+    }
+
+
+}
+
+//function to update a review
+
+async function updateReview(id, review) {
+
+    try {
+        let pool = await sql.connect(config);
+        let updatereview = await pool.request()
+            .input('input_parameter', sql.Int, id)
+            .input('CustomerID', sql.Int, review.CustomerID)
+            .input('Rating', sql.Int, review.Rating)
+            .input('Comment', sql.VarChar, review.Comment)
+            .query("UPDATE Review SET CustomerID = @CustomerID, Rating = @Rating, Comment = @Comment WHERE ID = @input_parameter");
+
+    }
+    catch (err) {
+
+        console.log(err);
+    }
+
+    
+}
+
+//function to delete a review
+
+async function deleteReview(id) {
+
+    try {
+        let pool = await sql.connect(config);
+        let deletereview = await pool.request()
+            .input('input_parameter', sql.Int, id)
+            .query("DELETE FROM Review WHERE ID = @input_parameter");
+
+    }
+
+    catch (error) {
+        console.log(error);
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -912,13 +1042,13 @@ module.exports =
     getAdminUserByUserName: getAdminUserByUserName,
     addAdminUser: addAdminUser,
     updateAdminUser: updateAdminUser,
-    deleteAdminUser: deleteAdminUser
-
-    
-
-
-
-
+    deleteAdminUser: deleteAdminUser,
+    getReviewInfo: getReviewInfo,
+    getReviews: getReviews,
+    getReview: getReview,
+    addReview: addReview,
+    updateReview: updateReview,
+    deleteReview: deleteReview
 
 
 
