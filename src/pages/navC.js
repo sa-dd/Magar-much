@@ -63,6 +63,7 @@ export default function Nav(){
                     <a className="nav-item-spacer"href="/nana"></a>
                     <a className="nav-item"href="/community">Community</a>
                     <a className="nav-item"href="/work">Work With US</a>
+                    <a className="nav-item" href="/reviews">Reviews</a>
                     <a className="nav-item-order"href="/order">
                         <span className="order-now-img"> </span>
                         <span> Order Now </span>
