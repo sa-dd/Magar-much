@@ -981,6 +981,52 @@ async function deleteReview(id) {
 
 
 
+async function takeOrder(order) {
+
+    try {
+        let pool = await sql.connect(config);
+        let insertorder = await pool.request()
+            .input('CustomerID', sql.Int, order.CustomerID)
+            .input('OrderDate', sql.DateTime, order.OrderDate)
+            .input('TotalAmount', sql.Money, order.TotalAmount)
+            .input('Status', sql.VarChar, order.Status)
+            .input('PaymentMethod', sql.VarChar, order.PaymentMethod)
+            .query("EXEC TakeOrder @CustomerID, @OrderDate, @TotalAmount, @Status, @PaymentMethod");
+
+    }
+    catch (err) {
+        console.log(err);
+
+    }
+
+
+}
+
+
+
+
+async function takeOrderDetails(orderdetails) {
+
+    try {
+        let pool = await sql.connect(config);
+        let insertorderdetails = await pool.request()
+            .input('OrderID', sql.Int, orderdetails.OrderID)
+            .input('FoodItemID', sql.Int, orderdetails.FoodItemID)
+            .input('Quantity', sql.Int, orderdetails.Quantity)
+            .query("EXEC TakeOrderDetails @OrderID, @FoodItemID, @Quantity");
+
+    }
+
+    catch (err) {
+        console.log(err);
+
+    }
+
+
+}
+
+
+
 
 
 
@@ -1048,7 +1094,9 @@ module.exports =
     getReview: getReview,
     addReview: addReview,
     updateReview: updateReview,
-    deleteReview: deleteReview
+    deleteReview: deleteReview,
+    takeOrder: takeOrder,
+    takeOrderDetails: takeOrderDetails
 
 
 

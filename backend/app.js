@@ -645,6 +645,32 @@ router.route('/reviews/:id').delete((request, response) => {
 })
 
 
+//take order
+
+// http://localhost:8080/api/takeorder
+
+router.route('/takeorder').post((request, response) => {
+    let order = { ...request.body };
+    dboperations.takeOrder(order).then(result => {
+        response.status(201).json(result[0]);
+    })
+
+})
+
+// take order detail
+
+// http://localhost:8080/api/takeorderdetail
+
+router.route('/takeorderdetail').post((request, response) => {
+    let orderdetail = { ...request.body };
+    dboperations.takeOrderDetail(orderdetail).then(result => {
+        response.status(201).json(result[0]);
+    })
+
+})
+
+
+
 
 
 
