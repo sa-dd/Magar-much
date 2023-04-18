@@ -564,6 +564,116 @@ router.route('/admins/:id').delete((request, response) => {
 })
 
 
+//get review info
+
+// http://localhost:8080/api/getreviews
+
+router.route('/getreviews').get((request, response) => {
+
+    dboperations.getReviewInfo().then(result => {
+        //console.log(result);
+        response.json(result[0]);
+    })
+
+})
+
+
+
+//get reviews
+
+// http://localhost:8080/api/reviews
+
+router.route('/reviews').get((request, response) => {
+
+    dboperations.getReviews().then(result => {
+        //console.log(result);
+        response.json(result[0]);
+    })
+
+})
+
+
+//get review by id
+
+// http://localhost:8080/api/reviews/1
+
+router.route('/reviews/:id').get((request, response) => {
+
+
+    dboperations.getReview(request.params.id).then(result => {
+        response.json(result[0]);
+    })
+
+})
+
+
+//add review
+
+// http://localhost:8080/api/reviews
+
+router.route('/reviews').post((request, response) => {
+    let review = { ...request.body };
+    dboperations.addReview(review).then(result => {
+        response.status(201).json(result[0]);
+    })
+
+})
+
+
+//update review
+
+// http://localhost:8080/api/reviews/1
+
+router.route('/reviews/:id').put((request, response) => {
+    let review = { ...request.body };
+    dboperations.updateReview(request.params.id, review).then(result => {
+        response.status(201).json(result[0]);
+    })
+})
+
+
+//delete review
+
+// http://localhost:8080/api/reviews/1
+
+router.route('/reviews/:id').delete((request, response) => {
+
+    dboperations.deleteReview(request.params.id).then(result => {
+        response.status(201).json(result[0]);
+    })
+
+})
+
+
+//take order
+
+// http://localhost:8080/api/takeorder
+
+router.route('/takeorder').post((request, response) => {
+    let order = { ...request.body };
+    dboperations.takeOrder(order).then(result => {
+        response.status(201).json(result[0]);
+    })
+
+})
+
+// take order detail
+
+// http://localhost:8080/api/takeorderdetail
+
+router.route('/takeorderdetail').post((request, response) => {
+    let orderdetail = { ...request.body };
+    dboperations.takeOrderDetail(orderdetail).then(result => {
+        response.status(201).json(result[0]);
+    })
+
+})
+
+
+
+
+
+
 
 
 

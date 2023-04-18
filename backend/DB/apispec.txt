@@ -1,0 +1,83 @@
+Here is a summary of the routes and their corresponding HTTP methods:
+
+
+for all POST, PUT and DELETE requests, the request body should be a JSON object with the following format:
+
+for example, to add a new customer, the request body should be:
+
+	{
+		"Name": "Ali",
+		"Email": "fast.com",
+		"Phone": "1234567890",
+		"PremiumCustomer": true,
+		"UserName": "ali142",
+		"Password": "12345678910"
+	}
+
+for all GET requests, the response body will be a JSON object with the above format.
+
+
+GET /api/customers - get all customers
+GET /api/customers/:id - get a customer by ID
+GET /api/customers/username/:username - get a customer by username
+POST /api/customers - add a new customer
+PUT /api/customers/:id - update an existing customer
+DELETE /api/customers/:id - delete a customer
+
+GET /api/fooditems - get all food items
+GET /api/fooditems/:id - get a food item by ID
+POST /api/fooditems - add a new food item
+PUT /api/fooditems/:id - update an existing food item
+DELETE /api/fooditems/:id - delete a food item
+
+GET /api/addresses - get all addresses
+GET /api/addresses/:id - get an address by ID
+POST /api/addresses - add a new address
+PUT /api/addresses/:id - update an existing address
+DELETE /api/addresses/:id - delete an address
+
+GET /api/areacodes - get all area codes
+GET /api/areacodes/:id - get an area code by ID
+POST /api/areacodes - add a new area code
+PUT /api/areacodes/:id - update an existing area code
+DELETE /api/areacodes/:id - delete an area code
+
+
+
+GET /api/orders - get all orders
+GET /api/orders/:id - get an order by ID
+POST /api/orders - add a new order
+PUT /api/orders/:id - update an existing order
+DELETE /api/orders/:id - delete an order
+
+POST /api/takeorder - take an order.
+
+GET /api/orderdetails - get all order details
+GET /api/orderdetails/:id - get an order detail by ID
+POST /api/orderdetails - add a new order detail
+PUT /api/orderdetails/:id - update an existing order detail
+DELETE /api/orderdetails/:id - delete an order detail
+
+POST /api/takeorderdetail - take an orders details.  
+
+GET /api/admins - get all admins
+GET /api/admins/:id - get an admin by ID
+GET /api/admins/username/:username - get an admin by username
+POST /api/admins - add a new admin
+PUT /api/admins/:id - update an existing admin
+DELETE /api/admins/:id - delete an admin
+
+GET /api/deliveryboys - get all deliveryboys
+GET /api/deliveryboys/:id - get a deliveryboy by ID
+POST /api/deliveryboys - add a new deliveryboy
+PUT /api/deliveryboys/:id - update an existing deliveryboy
+DELETE /api/deliveryboys/:id - delete a deliveryboy
+
+GET /api/getreviews - get all reviews with customer name and areaCodesData
+
+GET /api/reviews - get all reviews
+GET /api/reviews/:id - get a review by ID
+POST /api/reviews - add a new review
+PUT /api/reviews/:id - update an existing review
+DELETE /api/reviews/:id - delete a review
+

@@ -165,6 +165,31 @@ INSERT INTO AdminUser (UserName, Password)
 VALUES ('admin', '123456');
 
 
+-- Saad please add review table and all the procedures and functions here into your database
+
+CREATE TABLE Review (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    CustomerID INT NOT NULL FOREIGN KEY REFERENCES Customer(ID),
+    Rating INT NOT NULL,
+    Comment VARCHAR(500),
+    ReviewDate DATETIME NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT CK_Review_Rating CHECK (Rating >= 1 AND Rating <= 5)
+);
+
+INSERT INTO Review (CustomerID, Rating, Comment, ReviewDate)
+VALUES 
+
+(1, 5, 'The food was delicious and the delivery was fast!', '2022-03-08 12:45:00'),
+(2, 4, 'The food was good, but the delivery was a little late.', '2022-03-08 14:30:00'),
+(3, 3, 'The food was okay, but the delivery was very late.', '2022-03-08 18:30:00');
+
+
+
+
+
+
+
+
 
 
 
@@ -176,7 +201,109 @@ VALUES ('admin', '123456');
 
 -- Procedures
 
--- 
+CREATE PROCEDURE GetAllReviews
+AS
+BEGIN
+    SELECT * FROM Review JOIN Customer ON Review.CustomerID = Customer.ID;
+END;
+
+EXEC GetAllReviews;
+
+
+--------------------------------
+
+
+
+
+
+-- TakeOrder Procedure finds a suitable deliveryboy for the order and inserts the order into the database
+Create PROCEDURE TakeOrder
+@CustomerID INT,
+@OrderDate DATETIME,
+@TotalAmount MONEY,
+@Status VARCHAR(50),
+@PaymentMethod VARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    
+    DECLARE @DeliveryCount INT;
+    DECLARE @DeliveryBoyID INT;
+
+    -- Find the deliveryboy with the lowest delivery count
+
+    SELECT TOP 1 @DeliveryBoyID = ID, @DeliveryCount = DeliveryCount
+    FROM DeliveryBoy
+    ORDER BY DeliveryCount ASC;
+
+    -- Update the deliveryboy's delivery count
+    UPDATE DeliveryBoy
+    SET DeliveryCount = @DeliveryCount + 1
+    WHERE ID = @DeliveryBoyID;
+
+    -- Insert the order into the database
+
+    INSERT INTO [Order] (CustomerID, DeliveryBoyID, OrderDate, TotalAmount, Status, PaymentMethod)
+    VALUES (@CustomerID, @DeliveryBoyID, @OrderDate, @TotalAmount, @Status, @PaymentMethod);
+
+    -- Return the order ID
+    SELECT SCOPE_IDENTITY();
+
+
+
+
+
+END;
+
+
+--EXEC TakeOrder 2, '2023-04-16 14:00:00', 27.97, 'Delivered', 'Cash';
+
+
+
+--------------------------------
+
+--procedure TakeOrderDetails
+
+CREATE PROCEDURE TakeOrderDetails
+@OrderID INT,
+@FoodItemID INT,
+@Quantity INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    DECLARE @Price MONEY;
+    DECLARE @TotalAmount MONEY;
+    
+    -- Find the price of the food item
+    SELECT @Price = Price
+    FROM FoodItem
+    WHERE ID = @FoodItemID;
+    
+    -- Calculate the total amount
+    SET @TotalAmount = @Price * @Quantity;
+    
+    -- Insert the order details into the database
+    INSERT INTO OrderDetails (OrderID, FoodItemID, Quantity, Price)
+    VALUES (@OrderID, @FoodItemID, @Quantity, @TotalAmount);
+    
+    -- Return order id and food item id and total amount
+    SELECT @OrderID, @FoodItemID, @TotalAmount;
+    
+END;
+
+
+-- EXEC TakeOrderDetails 5, 1, 2;
+
+-- SELECT * FROM OrderDetails JOIN [Order] ON OrderDetails.OrderID = [Order].ID;
+
+-- drop procedure TakeOrderDetails;
+
+-- delete from OrderDetails where OrderID = 5 AND FoodItemID = 1;
+
+
+
 
 
 
@@ -198,6 +325,7 @@ SELECT * FROM FoodItem;
 SELECT * FROM [Order];
 SELECT * FROM OrderDetails;
 SELECT * FROM AdminUser;
+SELECT * FROM Review JOIN Customer ON Review.CustomerID = Customer.ID;
 
 --SUMMARY
 
