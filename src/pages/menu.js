@@ -1,6 +1,10 @@
 import Container from '@mui/material/Container'
+import Footer from './footer'
+import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faArrowDown} from '@fortawesome/free-solid-svg-icons'
 
-export async function getServerSideProps(){
+export async function getServerSideProps() {
+
     const userRequest = await fetch('http://localhost:8080/api/fooditems');
     const userData = await userRequest.json();
     return {
@@ -11,19 +15,20 @@ export async function getServerSideProps(){
 
 }
 
-export default function About(props){
-    return  <div className='about-cont'>
-        <Container  maxWidth="xl"> 
-            <div className="about"> 
-                <span> Hey {props.user[0].Name}, This is your Price: ${props.user[0].Price} </span> 
-                <img src={`http://localhost:8080${props.user[0].Image}`} alt= "burger"/>
-                <span> Hey {props.user[1].Name}, This is your Price: ${props.user[1].Price} </span> 
-                <img src={`http://localhost:8080${props.user[1].Image}`} alt= "fries" style = {{height:'650px', width: '745px'}} / >  
-                    <span> Hey {props.user[2].Name}, This is your Price: ${props.user[2].Price} </span> 
-                    <img src={`http://localhost:8080${props.user[2].Image}`} alt= "soda"/>
-
-                </div>
-
-            </Container>
+export default function About(props) {
+    return <div className='about-cont'>
+        <div className='main-container'>
+            <span className='menu-bg-text'> In <span className='mgt1'>burgers </span>we trust, our hearts doth crave Juicy, savory, and oh so brave With <span className='mgt1'>buns </span> that cradle their meaty </span>
+            <div className='menu'>
+                <span className='menu-title'><span className='m'>M</span><span className='e'>E</span><span className='n'>N</span><span className='u'>U</span><span className='s'>S</span>  </span>
+                <span className='menu-para'> A culinary tour of <span>BBQ</span> traditions from around this great nation and this beautiful planet. 1.8 million years ago, humans first began cooking meat with fire. For some reason, this hasn’t led to world peace, but we’re pretty sure if we fire up enough <span>BBQ</span>, it will.</span>
+            </div>
+            <div class="arrow bounce">
+                <a class="fa-solid fa-arrow-down" href="#">
+                    <FontAwesomeIcon icon={faArrowDown} size = "2xl" />
+                </a>
+            </div>
         </div>
+        <Footer />
+    </div>
 }
