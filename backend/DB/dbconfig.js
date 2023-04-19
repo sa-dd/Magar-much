@@ -1,9 +1,6 @@
-
-
-
 const config = {
-    user :'Abdullah',
-    password :'123456789',
+    user :'sa',
+    password :'Curse321',
     server:'127.0.0.1',
     database:'RestaurantDeliveryDB',
     options:{

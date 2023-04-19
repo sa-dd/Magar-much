@@ -422,11 +422,11 @@ async function getDeliveryBoys() {
     try {
         let pool = await sql.connect(config);
         let deliveryboys = await pool.request().query("SELECT * from DeliveryBoy");
-<<<<<<< HEAD
+
         return deliveryboys.recordsets
-=======
+
         return deliveryboys.recordsets;
->>>>>>> 1bba7bb7344174ad28d08502b456e55a269fc887
+
 
     }
     catch (error) {

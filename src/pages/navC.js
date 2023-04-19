@@ -59,7 +59,7 @@ export default function Nav(){
                 <div className="nav-inner">
                     <a className="nav-item" href="/menu">Menu</a>
                     <a className="nav-item"href="/better">Better Food</a>
-                    <a className="nav-item"href="/find">Find Us</a>
+                    <a className="nav-item"href="/reviews">Find Us</a>
                     <a className="nav-item-spacer"href="/nana"></a>
                     <a className="nav-item"href="/work">Work With US</a>
                     <a className="nav-item" href="/reviews">Reviews</a>
