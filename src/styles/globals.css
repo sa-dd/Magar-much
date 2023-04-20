@@ -814,6 +814,7 @@ food-section:hover{
 }
 .fs1 img{
     width: 200px;
+
     height: 170px;
     filter: grayscale(100%);
     transition: .3s;
@@ -823,7 +824,16 @@ food-section:hover{
     color: #f8fc40;
 }
 
+input[type="radio"]{
+    appearance: none;
+}
+input[type="radio"]:checked + label img{
+    filter: none;
 
+    width: 230px;
+
+    height: 200px;
+}
 
 .fs1 img:hover{
     filter: none;
@@ -862,6 +872,8 @@ food-section:hover{
     flex-wrap: wrap;
     align-content: flex-start;
     justify-content: center;
+
+    transition: 0.4s;
 }
 
 .item-cont{
@@ -889,7 +901,8 @@ food-section:hover{
 
 .item-cont:hover{
     
-    background-color: rgb(124, 105, 20, .2);
+
+    background-color: rgb(245, 241, 11, 0.3);
     cursor: pointer;
 }
 
