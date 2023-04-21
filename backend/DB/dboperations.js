@@ -262,6 +262,7 @@ async function addAddress(address) {
             .input('ZipCode', sql.NVarChar, address.ZipCode)
             .query("INSERT INTO Address (CustomerID, StreetAddress, City, State, ZipCode) VALUES (@CustomerID, @StreetAddress, @City, @State, @ZipCode)");
 
+        return insertaddress.recordsets;
     }
     catch (err) {
         console.log(err);
@@ -284,6 +285,7 @@ async function updateAddress(id, address) {
             .input('ZipCode', sql.NVarChar, address.ZipCode)
             .query("UPDATE Address SET CustomerID = @CustomerID, StreetAddress = @StreetAddress, City = @City, State = @State, ZipCode = @ZipCode WHERE ID = @Id");
 
+            return updateaddress.recordsets;
     }
     catch (err) {
 
@@ -301,6 +303,8 @@ async function deleteAddress(id) {
         let deleteaddress = await pool.request()
             .input('input_parameter', sql.Int, id)
             .query("DELETE FROM Address WHERE ID = @input_parameter");
+
+            return deleteaddress.recordsets;
 
     }
     catch (error) {
@@ -356,6 +360,7 @@ async function addAreaCode(areacode) {
             .input('Code', sql.Int, areacode.Code)
             .query("INSERT INTO AreaCode (Code) VALUES (@Code)");
 
+        return insertareacode.recordsets;
     }
     catch (err) {
         console.log(err);
@@ -374,6 +379,7 @@ async function updateAreaCode(id, areacode) {
             .input('Code', sql.Int, areacode.Code)
             .query("UPDATE AreaCode SET Code = @Code WHERE ID = @Id");
 
+        return updateareacode.recordsets;
     }
     catch (err) {
 
@@ -423,9 +429,13 @@ async function getDeliveryBoys() {
         let pool = await sql.connect(config);
         let deliveryboys = await pool.request().query("SELECT * from DeliveryBoy");
 
+
         return deliveryboys.recordsets
 
         return deliveryboys.recordsets;
+
+
+        return deliveryboys.recordsets
 
 
     }
@@ -443,6 +453,7 @@ async function getDeliveryBoy(DeliveryBoyId) {
             .input('input_parameter', sql.Int, DeliveryBoyId)
             .query("SELECT * from DeliveryBoy where ID = @input_parameter");
 
+        return deliveryboy.recordsets;
     }
     catch (error) {
         console.log(error);
@@ -467,6 +478,8 @@ async function addDeliveryBoy(deliveryboy) {
             .input('Password', sql.NVarChar, deliveryboy.Password)
             .query("INSERT INTO DeliveryBoy (Name, Phone, AreaCodeID, Availability, DeliveryCount, Rating, UserName, Password) VALUES (@Name, @Phone, @AreaCodeID, @Availability, @DeliveryCount, @Rating, @UserName, @Password)");
 
+        
+        return insertdeliveryboy.recordsets;     
     }
     catch (err) {
         console.log(err);
@@ -492,6 +505,7 @@ async function updateDeliveryBoy(id, deliveryboy) {
             .input('Password', sql.NVarChar, deliveryboy.Password)
             .query("UPDATE DeliveryBoy SET Name = @Name, Phone = @Phone, AreaCodeID = @AreaCodeID, Availability = @Availability, DeliveryCount = @DeliveryCount, Rating = @Rating, UserName = @UserName, Password = @Password WHERE ID = @Id");
 
+        return updatedeliveryboy.recordsets;
     }
     catch (err) {
 
@@ -510,6 +524,7 @@ async function deleteDeliveryBoy(id) {
             .input('input_parameter', sql.Int, id)
             .query("DELETE FROM DeliveryBoy WHERE ID = @input_parameter");
 
+        return deletedeliveryboy.recordsets;
     }
     catch (error) {
         console.log(error);
@@ -583,6 +598,7 @@ async function addOrder(order) {
             .input('PaymentMethod', sql.NVarChar, order.PaymentMethod)
             .query("INSERT INTO [Order] (CustomerID, DeliveryBoyID, OrderDate, DeliveryDate, TotalAmount, Status, PaymentMethod) VALUES (@CustomerID, @DeliveryBoyID, @OrderDate, @DeliveryDate, @TotalAmount, @Status, @PaymentMethod)");
 
+        return insertorder.recordsets; 
     }
     catch (err) {
         console.log(err);
@@ -607,6 +623,7 @@ async function updateOrder(id, order) {
             .input('PaymentMethod', sql.NVarChar, order.PaymentMethod)
             .query("UPDATE [Order] SET CustomerID = @CustomerID, DeliveryBoyID = @DeliveryBoyID, OrderDate = @OrderDate, DeliveryDate = @DeliveryDate, TotalAmount = @TotalAmount, Status = @Status, PaymentMethod = @PaymentMethod WHERE ID = @Id");
 
+        return updateorder.recordsets;
     }
     catch (err) {
 
@@ -625,6 +642,7 @@ async function deleteOrder(id) {
             .input('input_parameter', sql.Int, id)
             .query("DELETE FROM [Order] WHERE ID = @input_parameter");
 
+        return deleteorder.recordsets;
     }
     catch (error) {
         console.log(error);
@@ -691,6 +709,7 @@ async function addOrderDetail(orderdetail) {
             .input('Price', sql.Decimal, orderdetail.Price)
             .query("INSERT INTO OrderDetails (OrderID, FoodItemID, Quantity, Price) VALUES (@OrderID, @FoodItemID, @Quantity, @Price)");
 
+        return insertorderdetail.recordsets;
     }
     catch (err) {
         console.log(err);
@@ -713,6 +732,7 @@ async function updateOrderDetail(OrderId, FoodItemId, orderdetail) {
             .input('Price', sql.Decimal, orderdetail.Price)
             .query("UPDATE OrderDetails SET OrderID = @OrderID, FoodItemID = @FoodItemID, Quantity = @Quantity, Price = @Price WHERE OrderID = @OrderId AND FoodItemID = @FoodItemId");
 
+        return updateorderdetail.recordsets;
     }
     catch (err) {
 
@@ -733,6 +753,7 @@ async function deleteOrderDetail(OrderId, FoodItemId) {
             .input('FoodItemId', sql.Int, FoodItemId)
             .query("DELETE FROM OrderDetails WHERE OrderID = @OrderId AND FoodItemID = @FoodItemId");
 
+        return deleteorderdetail.recordsets;
     }
 
     catch (error) {
@@ -813,6 +834,7 @@ async function addAdminUser(adminuser) {
             .input('Password', sql.VarChar, adminuser.Password)
             .query("INSERT INTO AdminUser (UserName, Password) VALUES (@UserName, @Password)");
 
+        return insertadminuser.recordsets;
     }
     catch (err) {
         console.log(err);
@@ -832,6 +854,7 @@ async function updateAdminUser(id, adminuser) {
             .input('Password', sql.VarChar, adminuser.Password)
             .query("UPDATE AdminUser SET UserName = @UserName, Password = @Password WHERE ID = @input_parameter");
 
+        return updateadminuser.recordsets;
     }
     catch (err) {
 
@@ -851,6 +874,7 @@ async function deleteAdminUser(id) {
             .input('input_parameter', sql.Int, id)
             .query("DELETE FROM AdminUser WHERE ID = @input_parameter");
 
+        return deleteadminuser.recordsets;
     }
 
     catch (error) {
@@ -859,6 +883,26 @@ async function deleteAdminUser(id) {
     }
 
 }
+
+
+
+
+//function to get admin summary
+
+async function getAdminSummary() {
+    try {
+        let pool = await sql.connect(config);
+        let adminsummary = await pool.request().query("SELECT * from adminSummary");
+        return adminsummary.recordsets;
+    }
+
+    catch (error) {
+        console.log(error);
+    }
+
+}
+
+
 
 
 //function to get all reviews info
@@ -932,6 +976,7 @@ async function addReview(review) {
             .input('Comment', sql.VarChar, review.Comment)
             .query("INSERT INTO Review (CustomerID, Rating, Comment) VALUES (@CustomerID, @Rating, @Comment)");
 
+        return insertreview.recordsets;
     }
     catch (err) {
         console.log(err);
@@ -954,6 +999,7 @@ async function updateReview(id, review) {
             .input('Comment', sql.VarChar, review.Comment)
             .query("UPDATE Review SET CustomerID = @CustomerID, Rating = @Rating, Comment = @Comment WHERE ID = @input_parameter");
 
+        return updatereview.recordsets;
     }
     catch (err) {
 
@@ -973,6 +1019,7 @@ async function deleteReview(id) {
             .input('input_parameter', sql.Int, id)
             .query("DELETE FROM Review WHERE ID = @input_parameter");
 
+        return deletereview.recordsets;
     }
 
     catch (error) {
@@ -997,6 +1044,8 @@ async function takeOrder(order) {
             .input('PaymentMethod', sql.VarChar, order.PaymentMethod)
             .query("EXEC TakeOrder @CustomerID, @OrderDate, @TotalAmount, @Status, @PaymentMethod");
 
+
+        return insertorder.recordsets;
     }
     catch (err) {
         console.log(err);
@@ -1019,6 +1068,8 @@ async function takeOrderDetails(orderdetails) {
             .input('Quantity', sql.Int, orderdetails.Quantity)
             .query("EXEC TakeOrderDetails @OrderID, @FoodItemID, @Quantity");
 
+
+        return insertorderdetails.recordsets;
     }
 
     catch (err) {
@@ -1093,6 +1144,7 @@ module.exports =
     addAdminUser: addAdminUser,
     updateAdminUser: updateAdminUser,
     deleteAdminUser: deleteAdminUser,
+    getAdminSummary: getAdminSummary,
     getReviewInfo: getReviewInfo,
     getReviews: getReviews,
     getReview: getReview,

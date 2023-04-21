@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Customer List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+
+        th {
+            background-color: #EEE;
+        }
+
+        tr:nth-child(even) {
+            background-color: #EEE;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Customer List</h1>
+    <table id="customer-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Premium</th>
+                <th>Username</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <script>
+        const tableBody = document.querySelector('tbody');
+
+        fetch('http://localhost:8080/api/customers')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(customer => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+        <td>${customer.ID}</td>
+        <td>${customer.Name}</td>
+        <td>${customer.Email}</td>
+        <td>${customer.Phone}</td>
+        <td>${customer.PremiumCustomer ? 'Yes' : 'No'}</td>
+        <td>${customer.UserName}</td>
+        <td>${customer.Password}</td>
+      `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+    </script>
+</body>
+
+</html>

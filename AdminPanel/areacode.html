@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label,
+        input,
+        button {
+            margin: 5px 0;
+        }
+    </style>
+    <title>Area Codes</title>
+</head>
+
+<body>
+    <h1>Area Codes</h1>
+    <table id="area-codes-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <h2>Add New Area Code</h2>
+    <form id="add-area-code-form">
+        <label for="new-area-code">Area Code:</label>
+        <input type="number" id="new-area-code" required>
+        <button type="submit">Add</button>
+    </form>
+    <script>
+        const apiBaseUrl = 'http://localhost:8080/api/areacodes';
+        const tableBody = document.querySelector('#area-codes-table tbody');
+
+        async function fetchAreaCodes() {
+            try {
+                const response = await fetch(apiBaseUrl);
+                const areaCodes = await response.json();
+                tableBody.innerHTML = areaCodes.map(areaCode => `
+      <tr data-id="${areaCode.ID}">
+        <td>${areaCode.ID}</td>
+        <td>${areaCode.Code}</td>
+        <td><button class="delete-button">Delete</button></td>
+      </tr>
+    `).join('');
+            } catch (error) {
+                console.error('Error fetching area codes:', error);
+            }
+        }
+
+        fetchAreaCodes();
+        // Add event listener for the form
+        const form = document.getElementById('add-area-code-form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const newAreaCode = document.getElementById('new-area-code').value;
+            try {
+                const response = await fetch(apiBaseUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Code: newAreaCode })
+                });
+                if (response.ok) {
+                    fetchAreaCodes();
+                    form.reset();
+                } else {
+                    console.error('Error adding area code:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error adding area code:', error);
+            }
+        });
+
+        // Add event listener for delete buttons
+        tableBody.addEventListener('click', async (event) => {
+            if (event.target.classList.contains('delete-button')) {
+                const row = event.target.closest('tr');
+                const id = row.dataset.id;
+                try {
+                    const response = await fetch(`${apiBaseUrl}/${id}`, { method: 'DELETE' });
+                    if (response.ok) {
+                        fetchAreaCodes();
+                    } else {
+                        console.error('Error deleting area code:', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error deleting area code:', error);
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>

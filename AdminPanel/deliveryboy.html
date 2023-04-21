@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery Boys</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        label {
+            margin-top: 10px;
+        }
+
+        input[type="submit"] {
+            margin-top: 10px;
+            align-self: flex-end;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Delivery Boys</h1>
+
+    <form id="add-delivery-boy-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="area-code-id">Area Code ID:</label>
+        <input type="number" id="area-code-id" name="areaCodeID" required>
+
+        <label for="availability">Availability:</label>
+        <select id="availability" name="availability" required>
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select>
+
+        <label for="delivery-count">Delivery Count:</label>
+        <input type="number" id="delivery-count" name="deliveryCount" required>
+
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" name="rating" step="0.1" required>
+
+        <label for="user-name">User Name:</label>
+        <input type="text" id="user-name" name="userName" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <input type="submit" value="Add Delivery Boy">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>AreaCodeID</th>
+                <th>Availability</th>
+                <th>DeliveryCount</th>
+                <th>Rating</th>
+                <th>UserName</th>
+                <th>Password</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="delivery-boys"></tbody>
+    </table>
+
+    <script>
+        const deliveryBoysTable = document.getElementById('delivery-boys');
+        const addDeliveryBoyForm = document.getElementById('add-delivery-boy-form');
+
+        fetchDeliveryBoys();
+
+        addDeliveryBoyForm.addEventListener('submit', event => {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const deliveryBoy = {
+                Name: formData.get('name'),
+                Phone: formData.get('phone'),
+                AreaCodeID: parseInt(formData.get('areaCodeID')),
+                Availability: formData.get('availability') === 'true',
+                DeliveryCount: parseInt(formData.get('deliveryCount')),
+                Rating: parseFloat(formData.get('rating')),
+                UserName: formData.get('userName'),
+                Password: formData.get('password'),
+            };
+
+            addDeliveryBoy(deliveryBoy);
+            addDeliveryBoyForm.reset();
+        });
+
+        async function fetchDeliveryBoys() {
+            const response = await fetch('http://localhost:8080/api/deliveryboys');
+            const deliveryBoys = await response.json();
+            renderDeliveryBoys(deliveryBoys);
+        }
+
+        function renderDeliveryBoys(deliveryBoys) {
+            deliveryBoysTable.innerHTML = '';
+
+            deliveryBoys.forEach(deliveryBoy => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+        <td>${deliveryBoy.ID}</td>
+        <td>${deliveryBoy.Name}</td>
+        <td>${deliveryBoy.Phone}</td>
+        <td>${deliveryBoy.AreaCodeID}</td>
+        <td>${deliveryBoy.Availability}</td>
+        <td>${deliveryBoy.DeliveryCount}</td>
+        <td>${deliveryBoy.Rating}</td>
+        <td>${deliveryBoy.UserName}</td>
+        <td>${deliveryBoy.Password}</td>
+        <td><button data-id="${deliveryBoy.ID}" class="delete-btn">Delete</button></td> <!-- new column for delete button -->
+        `;
+
+                deliveryBoysTable.appendChild(row);
+            });
+
+            // Add event listeners to delete buttons
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', event => {
+                    const deliveryBoyId = event.target.dataset.id;
+                    deleteDeliveryBoy(deliveryBoyId);
+                });
+            });
+        }
+
+
+        async function addDeliveryBoy(deliveryBoy) {
+            const response = await fetch('http://localhost:8080/api/deliveryboys', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(deliveryBoy)
+            });
+
+            const newDeliveryBoy = await response.json();
+            renderDeliveryBoys([newDeliveryBoy]);
+            location.reload();
+        }
+
+        async function deleteDeliveryBoy(deliveryBoyId) {
+            const response = await fetch(`http://localhost:8080/api/deliveryboys/${deliveryBoyId}`, {
+                method: 'DELETE',
+            });
+
+            const deletedDeliveryBoy = await response.json();
+            fetchDeliveryBoys();
+
+            //refresh page
+            location.reload();
+        }
+
+    </script>
+
+</body>
+
+</html>

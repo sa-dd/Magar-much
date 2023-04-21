@@ -1,3 +1,5 @@
+
+
 const config = {
     user :'sa',
     password :'Curse321',
@@ -12,4 +14,4 @@ const config = {
     port : 1433
 }
 
-module.exports = config; 
+module.exports = config;

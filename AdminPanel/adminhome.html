@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+  <style>
+    body {
+      background-color: lightblue;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Content goes here -->
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Admin Dashboard</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="orders.html">Orders</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="customers.html">Customers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="areacode.html">Area Codes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="deliveryboy.html">Delivery Boys</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="menuItems.html">Menu Items</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Summary -->
+  <div id="summary" class="container">
+    <h2>Summary</h2>
+    <div id="data"></div>
+  </div>
+
+  <script>
+    async function fetchSummary() {
+      const response = await fetch('http://localhost:8080/api/adminsummary');
+      const data = await response.json();
+      console.log(data);
+      displaySummary(data[0]);
+    }
+
+    function displaySummary(data) {
+      const summaryDiv = document.getElementById('data');
+
+      // Create the table element
+      const table = document.createElement('table');
+      table.classList.add('table'); // Add Bootstrap table class for styling
+
+      // Create the table head and body
+      const thead = document.createElement('thead');
+      const tbody = document.createElement('tbody');
+
+      // Add table head and body to the table
+      table.appendChild(thead);
+      table.appendChild(tbody);
+
+      // Iterate through the data and create table rows and cells
+      for (const key in data) {
+        const row = document.createElement('tr');
+        const keyCell = document.createElement('td');
+        keyCell.innerHTML = key;
+        const valueCell = document.createElement('td');
+        valueCell.innerHTML = data[key];
+        row.appendChild(keyCell);
+        row.appendChild(valueCell);
+        tbody.appendChild(row);
+
+        // make text bold
+        keyCell.style.fontWeight = 'bold';
+
+        // make text right aligned
+        valueCell.style.textAlign = 'right';
+
+        // make valueCell bold
+        valueCell.style.fontWeight = 'bold';
+
+        
+
+
+      }
+
+      // Append the table to the summaryDiv
+      summaryDiv.appendChild(table);
+    }
+
+
+    fetchSummary();
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

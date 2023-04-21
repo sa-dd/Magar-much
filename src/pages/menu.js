@@ -4,6 +4,7 @@ import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faArrowDown} from '@fortawesome/free-solid-svg-icons'
 import {useRef, useState} from 'react'
 import { selectClasses } from '@mui/material'
+import { motion } from "framer-motion"
 
 export async function getServerSideProps() {
 
@@ -19,7 +20,7 @@ export async function getServerSideProps() {
 
 export default function About(props) {
     console.log(props.items);
-    const [selectedOption, setSelectedOption] = useState('featured');
+    const [selectedOption, setSelectedOption] = useState('Featured');
 
     const handleOption= (event) => {
         setSelectedOption(event.target.value);
@@ -32,8 +33,8 @@ export default function About(props) {
                     <span className='menu-title'><span className='m'>M</span><span className='e'>E</span><span className='n'>N</span><span className='u'>U</span><span className='s'>S</span>  </span>
                     <span className='menu-para'> A culinary tour of <span>BBQ</span> traditions from around this great nation and this beautiful planet. 1.8 million years ago, humans first began cooking meat with fire. For some reason, this hasn’t led to world peace, but we’re pretty sure if we fire up enough <span>BBQ</span>, it will.</span>
                 </div>
-                <div class="arrow bounce">
-                    <a class="fa-solid fa-arrow-down" href="section2">
+                <div className="arrow bounce">
+                    <a className="fa-solid fa-arrow-down" href="section2">
                         <FontAwesomeIcon icon={faArrowDown} size = "2x" />
                     </a>
                 </div>
@@ -95,24 +96,24 @@ export default function About(props) {
                 </div>
 
                 <div className='menu-container'> 
-                    <div className='food-cont'>
+                    <motion.div animate={{ x: -230 }} transition={{ delay: 2 }} className='food-cont'>
         {
             props.items.map((item, index)=>(
                 (item.Category === selectedOption)? (
-                    <div className='item-cont' key={index}>
+                    <motion.div animate={{ y: 50 }}  className='item-cont' key={index}>
                         <div className='item-cont-text'>
                             <span className='item-name'> {item.Name}</span>
                             <span className='item-desc'> {item.Description} </span>
                             <span className='item-price'> Price: <span className='ips'>${item.Price}</span> </span>
                         </div>
                         <img src={`http://localhost:8080${item.Image}`} alt= "burger"/>
-                    </div>
+                    </motion.div>
                 ) : null
             )
             )
         }
 
-    </div>
+    </motion.div>
         {/* <div className='cart'> hi </div> */}
     </div>
 </div>

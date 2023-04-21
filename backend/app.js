@@ -278,7 +278,8 @@ router.route('/areacodes/:id').put((request, response) => {
 
 router.route('/areacodes/:id').delete((request, response) => {
     dboperations.deleteAreaCode(request.params.id).then(result => {
-        response.status(201).json(result[0]);
+        
+        //response.status(201).json(result[0]);
     })
 
 })
@@ -562,6 +563,22 @@ router.route('/admins/:id').delete((request, response) => {
     })
 
 })
+
+
+// get admin summary
+
+// http://localhost:8080/api/adminsummary
+
+router.route('/adminsummary').get((request, response) => {
+
+    dboperations.getAdminSummary().then(result => {
+        //console.log(result);
+        response.json(result[0]);
+    })
+
+})
+
+
 
 
 //get review info

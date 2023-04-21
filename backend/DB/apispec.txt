@@ -63,6 +63,7 @@ POST /api/takeorderdetail - take an orders details.
 GET /api/admins - get all admins
 GET /api/admins/:id - get an admin by ID
 GET /api/admins/username/:username - get an admin by username
+GET /api/adminsummary - get summary of store for admin
 POST /api/admins - add a new admin
 PUT /api/admins/:id - update an existing admin
 DELETE /api/admins/:id - delete an admin

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .order-details {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-5">Order Details</h1>
+        <table class="table table-striped table-bordered" id="ordersTable">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>CustomerID</th>
+                    <th>Delivery Boy ID</th>
+                    <th>Order Date</th>
+                    <th>Delivery Date</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                    <th>Payment Method</th>
+                    <th>Order Details</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        async function fetchData(url) {
+            const response = await fetch(url);
+            const data = await response.json();
+            return data;
+        }
+
+        (async () => {
+            const orders = await fetchData("http://localhost:8080/api/orders");
+            const orderDetails = await fetchData("http://localhost:8080/api/orderdetails");
+            const foodItems = await fetchData("http://localhost:8080/api/fooditems");
+            const customers = await fetchData("http://localhost:8080/api/customers");
+
+            const ordersTable = document.getElementById("ordersTable");
+
+            orders.forEach(order => {
+                const customer = customers.find(c => c.ID === order.CustomerID);
+                const orderItems = orderDetails.filter(od => od.OrderID === order.ID);
+
+                const row = ordersTable.insertRow(-1);
+                row.insertCell(-1).innerText = order.ID;
+                row.insertCell(-1).innerText = customer.Name;
+                row.insertCell(-1).innerText = order.CustomerID;
+                row.insertCell(-1).innerText = order.DeliveryBoyID;
+                row.insertCell(-1).innerText = new Date(order.OrderDate);
+                row.insertCell(-1).innerText = new Date(order.DeliveryDate);
+                row.insertCell(-1).innerText = order.TotalAmount.toFixed(2);
+                row.insertCell(-1).innerText = order.Status;
+                row.insertCell(-1).innerText = order.PaymentMethod;
+
+                const orderItemsCell = row.insertCell(-1);
+                orderItems.forEach(item => {
+                    const foodItem = foodItems.find(fi => fi.ID === item.FoodItemID);
+                    const itemElement = document.createElement("div");
+                    itemElement.textContent = `${foodItem.Name} (${item.Quantity}) - ${item.Price.toFixed(2)}`;
+                    orderItemsCell.appendChild(itemElement);
+                });
+            });
+        })();
+
+    </script>
+</body>
+
+</html>
