@@ -430,12 +430,7 @@ async function getDeliveryBoys() {
         let deliveryboys = await pool.request().query("SELECT * from DeliveryBoy");
 
 
-        return deliveryboys.recordsets
-
         return deliveryboys.recordsets;
-
-
-        return deliveryboys.recordsets
 
 
     }

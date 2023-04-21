@@ -247,6 +247,21 @@ VALUES
 
 
 
+--VIEW
+
+CREATE VIEW adminSummary AS
+SELECT
+    (SELECT COUNT(*) FROM Customer) AS CustomerCount,
+    (SELECT COUNT(*) FROM DeliveryBoy) AS DeliveryBoyCount,
+    (SELECT COUNT(*) FROM FoodItem) AS FoodItemCount,
+    (SELECT COUNT(*) FROM [Order]) AS OrderCount,
+    (SELECT COUNT(*) FROM Review) AS ReviewCount;
+
+
+--SELECT * FROM adminSummary;
+
+
+--------------------------------
 
 
 
@@ -265,7 +280,7 @@ BEGIN
 END;
 GO
 
-EXEC GetAllReviews;
+--EXEC GetAllReviews;
 
 
 --------------------------------
@@ -360,7 +375,32 @@ END;
 
 -- delete from OrderDetails where OrderID = 5 AND FoodItemID = 1;
 
+--------------------------------------------------
 
+--procedure to return customer summary
+
+CREATE PROCEDURE GetAllCustomerSummary
+AS
+
+
+BEGIN
+    SET NOCOUNT ON;
+    
+    SELECT * FROM Customer
+    INNER JOIN Address ON Customer.ID = Address.CustomerID
+    INNER JOIN [Order] ON Customer.ID = [Order].CustomerID
+    INNER JOIN OrderDetails ON [Order].ID = OrderDetails.OrderID
+    INNER JOIN FoodItem ON OrderDetails.FoodItemID = FoodItem.ID
+    INNER JOIN DeliveryBoy ON [Order].DeliveryBoyID = DeliveryBoy.ID
+    INNER JOIN AreaCode ON DeliveryBoy.AreaCodeID = AreaCode.ID
+    INNER JOIN Address AS DeliveryAddress ON Customer.ID = DeliveryAddress.CustomerID
+    
+END;
+
+
+--exec GetAllCustomerSummary;
+
+------------------------------------------------
 
 
 
@@ -373,7 +413,7 @@ END;
 --ROUGH WORK
 
 -- Print all tables in the database
-SELECT * FROM sys.databases;
+SELECT * FROM sys.tables;
 
 SELECT * FROM Customer;
 SELECT * FROM Address;
@@ -393,7 +433,9 @@ INNER JOIN [Order] ON Customer.ID = [Order].CustomerID
 INNER JOIN OrderDetails ON [Order].ID = OrderDetails.OrderID
 INNER JOIN FoodItem ON OrderDetails.FoodItemID = FoodItem.ID
 INNER JOIN DeliveryBoy ON [Order].DeliveryBoyID = DeliveryBoy.ID
-INNER JOIN AreaCode ON DeliveryBoy.AreaCodeID = AreaCode.ID;
+INNER JOIN AreaCode ON DeliveryBoy.AreaCodeID = AreaCode.ID
+INNER JOIN Address AS DeliveryAddress ON Customer.ID = DeliveryAddress.CustomerID
+
 
 
 
