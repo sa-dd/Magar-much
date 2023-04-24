@@ -1005,7 +1005,7 @@ input[type="radio"]:checked + label span{
     padding-left: 30px;
     justify-content: flex-start;
     align-items: center;
-    font-family: 'plakkta';
+    font-family: 'londrina';
     font-size: 26px;
 
 }
@@ -1016,7 +1016,30 @@ input[type="radio"]:checked + label span{
     margin-right: 20px;
 }
 
+.cart-item-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100px;
+}
+
+.cart-item-name{
+    font-family: 'plakkta';
+    font-size: 21px;
+    line-height: 22px;
+    text-align: initial;
+}
+
+.cart-item-price{
+    font-weight: 1000;
+    color: yellow;
+    opacity: 0.7;
+    margin-left: 10px;
+}
+
 .cart-item-q{
+    font-family: 'plakkta';
     margin-right: 10px;
     font-size: 30px;
 }

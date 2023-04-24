@@ -168,9 +168,12 @@ export default function About(props) {
                         <div className='cart-item' key={item.ID}>
                             <span className='cart-item-q'> {`${cartItemQuantity[item.ID]}x`} </span>
                             <img src={`http://localhost:8080${item.Image}`} />
-                        {`${item.Name} ~ $${item.Price * cartItemQuantity[item.ID]}`}
+                            <div className='cart-item-details'>
+                                <span className='cart-item-name'>{item.Name} </span>
+                                <span className='cart-item-price'> {` Price:  $${item.Price * cartItemQuantity[item.ID]}`} </span>
+                            </div>
 
-                    </div> )) 
+                        </div> )) 
 
                 }
             </div>
@@ -180,8 +183,8 @@ export default function About(props) {
                 <div className='cart-bill'> Total </div>
                 <button className='cart-checkout'> Checkout </button>
             </div>
-        </motion.div> : null }
-    </div>
+    </motion.div> : null }
+</div>
 </div>
 </div>
 
