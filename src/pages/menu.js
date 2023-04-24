@@ -3,7 +3,7 @@ import Footer from './footer'
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faArrowDown} from '@fortawesome/free-solid-svg-icons'
 import {useRef, useState, useEffect} from 'react'
-import { selectClasses } from '@mui/material'
+import { TextField} from '@mui/material'
 import { motion } from "framer-motion"
 import { width } from '@mui/system'
 
@@ -20,22 +20,29 @@ export async function getServerSideProps() {
 }
 
 export default function About(props) {
-
+    const quantity = useRef(null);
     const [selectedOption, setSelectedOption] = useState('Featured');
     const [showCart, setShowCart] = useState(false);
     const [moveItems, setMoveItems] = useState(0); 
     const [changeWidthx, setChangeWidthx] = useState(90);
     const [cartItems, setCartItems] = useState([]);
     const [cartItemQuantity, setCartItemQuantity] = useState({});
+    const [total, setTotal] = useState(0);
 
     const [changeWidth, setChangeWidth] = useState(30);
     const handleOption= (event) => {
         setSelectedOption(event.target.value);
     }
+
     useEffect(() => {
-    console.log('myCart:', cartItems);
-    console.log('cartItemQuantity', cartItemQuantity)
-  }, [cartItems], [cartItemQuantity]);
+        // Calculate the total
+        const newTotal = cartItems.reduce(
+            (total, item) => total + item.Price * cartItemQuantity[item.ID],
+            0
+        );
+        // Update the state of `total`
+        setTotal(newTotal);
+    }, [cartItems, cartItemQuantity]);
 
     const handleClick = (key) => {
         console.log(key);
@@ -50,14 +57,9 @@ export default function About(props) {
             ...prevState,
             [key]: (prevState[key] || 0) + 1, // increment quantity by 1 or set to 1 if undefined
         }));
-
-
         setShowCart(true);
     }
 
-    const handleIncrement = (key) => {
-        setCartItemQuantity(prevState => ({ ...prevState, [key]: prevState[key] + 1 }));
-    }
 
 
     const itemContStyle = {
@@ -170,7 +172,7 @@ export default function About(props) {
                             <img src={`http://localhost:8080${item.Image}`} />
                             <div className='cart-item-details'>
                                 <span className='cart-item-name'>{item.Name} </span>
-                                <span className='cart-item-price'> {` Price:  $${item.Price * cartItemQuantity[item.ID]}`} </span>
+                                <span className='cart-item-price' ref={quantity}> {` Price:  $${(item.Price * cartItemQuantity[item.ID]).toFixed(2)}`} </span>
                             </div>
 
                         </div> )) 
@@ -179,8 +181,8 @@ export default function About(props) {
             </div>
             }
             <div className='cart-other'> 
-                <div className='cart-promo'> Enter Promo Code </div>
-                <div className='cart-bill'> Total </div>
+                <div className='cart-bill'> <span>Total : </span> {<div> ${total.toFixed(2)} </div>}</div>
+                <div className='cart-promo'>{<TextField id="outlined-basic" label="Enter Promo Code" variant="outlined" color='secondary'/>} </div>
                 <button className='cart-checkout'> Checkout </button>
             </div>
     </motion.div> : null }
