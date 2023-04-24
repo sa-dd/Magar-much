@@ -46,7 +46,7 @@ export default function Nav(){
                 <div className="login-sub-icons">
                     <div className="login-sub-icons-button">
                         <div className="login-sub-icons-button-img"> </div>
-                        <a href=""> Login </a>
+                        <a href=""> Sign In</a>
                     </div>
                 </div>
             </div>
@@ -61,9 +61,9 @@ export default function Nav(){
                     <a className="nav-item"href="/better">Better Food</a>
                     <a className="nav-item"href="/reviews">Find Us</a>
                     <a className="nav-item-spacer"href="/nana"></a>
-                    <a className="nav-item"href="/work">Work With US</a>
+                    <a className="nav-item"href="https://discord.com/invite/samurai">Work With US</a>
                     <a className="nav-item" href="/reviews">Reviews</a>
-                    <a className="nav-item-order"href="/order">
+                    <a className="nav-item-order"href="/menu">
                         <span className="order-now-img"> </span>
                         <span> Order Now </span>
                     </a>
