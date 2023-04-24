@@ -168,13 +168,18 @@ export default function About(props) {
                         <div className='cart-item' key={item.ID}>
                             <span className='cart-item-q'> {`${cartItemQuantity[item.ID]}x`} </span>
                             <img src={`http://localhost:8080${item.Image}`} />
-                        {`${item.Name} ~ $${item.Price}`}
+                        {`${item.Name} ~ $${item.Price * cartItemQuantity[item.ID]}`}
 
                     </div> )) 
 
                 }
             </div>
             }
+            <div className='cart-other'> 
+                <div className='cart-promo'> Enter Promo Code </div>
+                <div className='cart-bill'> Total </div>
+                <button className='cart-checkout'> Checkout </button>
+            </div>
         </motion.div> : null }
     </div>
 </div>
