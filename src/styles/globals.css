@@ -1007,6 +1007,12 @@ input[type="radio"]:checked + label span{
     margin-right: 20px;
 }
 
+.cart-item-q{
+    margin-right: 5px;
+    font-size: 30px;
+}
+
+
 .arrow {
     display: flex;
     flex-direction: column;

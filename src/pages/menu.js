@@ -32,25 +32,31 @@ export default function About(props) {
     const handleOption= (event) => {
         setSelectedOption(event.target.value);
     }
+    useEffect(() => {
+    console.log('myCart:', cartItems);
+    console.log('cartItemQuantity', cartItemQuantity)
+  }, [cartItems], [cartItemQuantity]);
 
-    const handleClick = (index) => {
+    const handleClick = (key) => {
+        console.log(key);
         setMoveItems(-100);
         setChangeWidth(40);    
         setChangeWidthx(80);
 
-
-        if(cartItemQuantity[index] === undefined)
-        setCartItems([...cartItems, props.items[index]])
+        if(cartItemQuantity[key] === undefined)
+            setCartItems([...cartItems, props.items[key-1]])  // adding items to the cart
 
         setCartItemQuantity((prevState) => ({
             ...prevState,
-            [index]: (prevState[index] || 1) + 1, // increment quantity by 1 or set to 1 if undefined
+            [key]: (prevState[key] || 0) + 1, // increment quantity by 1 or set to 1 if undefined
         }));
 
 
-        console.log(cartItemQuantity);
-
         setShowCart(true);
+    }
+
+    const handleIncrement = (key) => {
+        setCartItemQuantity(prevState => ({ ...prevState, [key]: prevState[key] + 1 }));
     }
 
 
@@ -134,13 +140,13 @@ export default function About(props) {
                 <div className='menu-container'> 
                     <motion.div animate={{ x: moveItems }} transition={{ delay: 2 }} className='food-cont' style={foodContStyle}>
         {
-            props.items.map((item, index)=>(
+            props.items.map((item)=>(
                 (item.Category === selectedOption)? (
-                    <motion.div animate={{ y: 50 }}  className='item-cont' key={index}   transition={{ delay: 0.5 }} style = {itemContStyle}>
+                    <motion.div animate={{ y: 50 }}  className='item-cont' key={item.ID}   transition={{ delay: 0.5 }} style = {itemContStyle}>
                         <div className='item-cont-text'>
                             <span className='item-name'> {item.Name}</span>
                             <span className='item-desc'> {item.Description} </span>
-                            <button onClick={()=>handleClick(index)}>Add To Cart</button>
+                            <button onClick={()=>handleClick(item.ID)}>Add To Cart</button>
                             <span className='item-price'> Price: <span className='ips'>${item.Price}</span> </span>
                         </div>
                         <img src={`http://localhost:8080${item.Image}`} alt= "burger"/>
@@ -158,9 +164,9 @@ export default function About(props) {
 
             <div className='cart-item-cont' >
                 {
-                    cartItems.map((item, index)=>(
-                        <div className='cart-item' key={index}>
-                            <span className='cart-item-q'> {cartItemQuantity[index] || 1} </span>
+                    cartItems.map((item)=>(
+                        <div className='cart-item' key={item.ID}>
+                            <span className='cart-item-q'> {`${cartItemQuantity[item.ID]}x`} </span>
                             <img src={`http://localhost:8080${item.Image}`} />
                         {`${item.Name} ~ $${item.Price}`}
 
