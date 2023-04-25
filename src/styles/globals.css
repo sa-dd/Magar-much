@@ -177,7 +177,6 @@ Navbar{
 }
 
 .login-sub-icons-button{
-    font-family: 'block-pro-regular';
     display: flex;
     width: 110px;
     height: 45px;
@@ -185,6 +184,7 @@ Navbar{
     align-items: center;
     text-align: center;
 }
+
 
 .login-sub-icons-button-img{
     background-image: url('/profile.svg');
@@ -196,18 +196,158 @@ Navbar{
     flex: 0 0 35px;
 }
 
-.login-sub-icons-button a{
+.login-sub-icons-button button{
     text-align: center;
     font-size: 22px;
     padding: 1.6px 0;
     font-weight: 300px;
     transition: .3s;
     margin-left: 2px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: 'block-pro-regular';
+    color: white;
 }
 
-.login-sub-icons-button a:hover{
+.login-sub-icons-button button:hover{
     color: yellow;
     text-decoration: underline;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    display: none;
+}
+
+.modal-backdrop.visible {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content{
+    display: flex;
+    width: 50%;
+    height: 80%;
+    background-color: black;
+    border-radius: 50px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding-top: 20px;
+    
+}
+
+.modal-form .modal-close{
+    position: absolute;
+    border: solid;
+    background-color: yellow;
+    color: black;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    align-self: flex-end;
+    font-size: 20px;
+    margin-right: 20px;
+   transition: 0.3s; 
+    
+}
+
+.modal-form .modal-close:hover{
+    color: white; 
+    background-color: transparent;
+    
+}
+.modal-content img{
+    width: 50%;
+}
+
+.modal-text{
+    display: flex;
+    flex-direction: column;
+    height: 45%;
+    width: 80%;
+    align-items: center;
+}
+
+.modal-offer{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+    font-family: 'block-pro-regular';
+    font-size: 25px;
+    justify-content: space-between;
+    height: 55%;
+    margin-top: 20px;
+}
+
+.modal-offer-2{
+    font-family: 'smoke';
+    font-size: 90px;
+    color: yellow;
+}
+
+.modal-join-text{
+    color: grey;
+    margin-top: 30px;
+    text-align: center;
+    font-family: 'londrina';
+    font-weight: 1000;
+    font-size: 20px;
+    align-self: flex-end;
+}
+
+.modal-title{
+    font-family: 'smoke';
+    color: yellow;
+    font-size: 22px;
+}
+
+.modal-title span{
+    font-family: 'block-pro-regular';
+    color: yellow;
+    margin-left: 10px;
+}
+.modal-actual-form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    width: 80%;
+    height: 20%;
+    justify-content: space-around;
+}
+
+.modal-signin{
+    border: none;
+    background-color: yellow;
+    color: black;
+    cursor: pointer;
+    width: 90px;
+    height: 40px;
+    font-family: 'block-pro-regular';
+    border-radius: 10px;
+    font-size: 20px;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.modal-signin:hover{
+    border: solid;
+    background-color: transparent;
+    color: white;
 }
 
 /* this is the second component of the navbar that accomodates different routes and their respectives buttons along with the logo*/
@@ -263,7 +403,7 @@ Navbar{
 
 .nav-logo{
     position: absolute;
-    z-index: 10;
+    z-index: 1;
     width: 100px;
     background: #d0021b;
     cursor: pointer;
@@ -301,7 +441,7 @@ Navbar{
 }
 .nav-item-order span{
     font-size: 22px;
-    
+
 }
 
 .order-now-img{
@@ -326,7 +466,7 @@ Navbar{
     bottom: 0;
     object-fit: cover;
     left: 0;
-        right: 0;
+    right: 0;
 
 }
 
@@ -368,10 +508,10 @@ Navbar{
 }
 
 .logo-footer{
-   display: flex; 
-   flex-direction: column;
-   justify-content: center;
-   margin-left: 100px;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 100px;
 }
 .logo-footer img{
     width: 150px;
@@ -401,12 +541,12 @@ Navbar{
 
     color:  #c2beb8 ;
     cursor: pointer;
-    
+
 }
 .footer-contact-box .list span:hover{
 
     color:  white;
-   transition: .6s; 
+    transition: .6s; 
 }
 
 
@@ -416,7 +556,7 @@ Navbar{
 .footer-contact2{
     display: flex;
     width:60%;
-   background-color:#171717; 
+    background-color:#171717; 
 }
 
 .contact2-box1{
@@ -522,7 +662,7 @@ Navbar{
 }
 
 .box1-heading{
-    
+
     color: #fff;
     margin-left: 60px;
     text-decoration-line: underline;
@@ -532,7 +672,7 @@ Navbar{
 }
 
 .box1-heading:hover{
-    
+
     text-decoration-color: white;
     cursor: pointer;
 }
@@ -569,13 +709,13 @@ Navbar{
 
 .slider-papi{
 
-  z-index: 10;
+    z-index: 10;
     margin-top: 770px;
 }
 
 .slider-papi img{
-  height: 450px;
-  width: 500px;
+    height: 450px;
+    width: 500px;
 }
 
 
@@ -659,7 +799,7 @@ Navbar{
     font-size: 38px;
     color:#d0021b;
     margin-bottom: 20px;
-    
+
 }
 .ad1-block .header{
     display: flex;
@@ -779,10 +919,10 @@ Navbar{
     justify-content: center;
     justify-content: space-around;
     align-items: center;
-   width: 95%; 
-   height: 300px;
-   z-index: 2;
-   margin-top: 30px;
+    width: 95%; 
+    height: 300px;
+    z-index: 2;
+    margin-top: 30px;
 
 }
 food-section:hover{
@@ -892,7 +1032,7 @@ input[type="radio"]:checked + label span{
 }
 
 .item-cont:hover{
-    
+
 
     background-color: rgb(245, 241, 11, 0.3);
     cursor: pointer;
@@ -961,7 +1101,7 @@ input[type="radio"]:checked + label span{
     background-color: rgb(242, 118, 20, .1);
 }
 .cart-item-cont::-webkit-scrollbar {
-  display: none; /* hide the scrollbar on Webkit browsers */
+    display: none; /* hide the scrollbar on Webkit browsers */
 }
 
 .cart-title{
