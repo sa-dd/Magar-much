@@ -54,6 +54,7 @@ POST /api/takeorder - take an order.
 
 PUT /api/ordercancelled/:id - cancel an order.
 PUT /api/orderdelivered/:id - deliver an order.
+PUT /api/orderinprogress/:id - set an order in progress.
 
 GET /api/orderdetails - get all order details
 GET /api/orderdetails/:id - get an order detail by ID
