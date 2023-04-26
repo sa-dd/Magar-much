@@ -687,6 +687,28 @@ async function changeStatusToCancelled(id) {
 
 }
 
+//function to change status of an order to in progress
+
+async function changeStatusToInProgress(id) {
+
+    try {
+        let pool = await sql.connect(config);
+        let updateorder = await pool.request()
+            .input('Id', sql.Int, id)
+            .query("UPDATE [Order] SET Status = 'In Progress', DeliveryDate = NULL WHERE ID = @Id");
+
+        return updateorder.recordsets;
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
 
 // CREATE TABLE OrderDetails (
 //     OrderID INT NOT NULL FOREIGN KEY REFERENCES [Order](ID),
@@ -1192,6 +1214,7 @@ module.exports =
     takeOrderDetails: takeOrderDetails,
     changeStatusToDelivered: changeStatusToDelivered,
     changeStatusToCancelled: changeStatusToCancelled,
+    changeStatusToInProgress: changeStatusToInProgress,
 
 
 
