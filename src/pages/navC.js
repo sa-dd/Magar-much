@@ -97,33 +97,37 @@ export default function Nav(){
                         <span className='modal-join-text'> Join us now to get 50% off promo on your first order and get our premium membership for the first month free.</span>
                     </div>
                     <div className='modal-actual-form'>
-                        <CssTextField id="outlined-basic" value={email} onChange={handleEmail} label="Email" variant="outlined" color='secondary' sx={{'& .MuiOutlinedInput-input' : { color: 'white'}}}/>
+                        <CssTextField id="outlined-basic" value={email} onChange={handleEmail} label="Email" variant="outlined" color='secondary' InputLabelProps={{ style: { color: 'white' } }}  sx={{'& .MuiOutlinedInput-input' : { color: 'white'}}}/>
                         <CssTextField id="outlined-basic"  value={pass} onChange = {(event) => setPass(event.target.value)} label="Password" variant="outlined" color='secondary' InputLabelProps={{ style: { color: 'white' } }} sx={{'& .MuiOutlinedInput-input' : { color: 'white'}}} />
                     </div>
-                    <button className='modal-signin' onClick={() => console.log('Email', email)}> Sign In </button>
-                    <button className='modal-close' onClick={()=> setShowModal(!showModal)}>X</button>
-                </div>
+                    <button className='modal-signin' onClick={() =>{
+                        console.log('Email', email)
+                        console.log('Password', pass)
+                    }
+                    }> Sign In </button>
+                <button className='modal-close' onClick={()=> setShowModal(!showModal)}>X</button>
             </div>
         </div>
+    </div>
 
-        <Container maxWidth="xl"> 
+    <Container maxWidth="xl"> 
 
-            <div className="container-inner">
-                <a className="nav-logo" href="/papu"> <img src="/logo.svg" alt="app-logo" /> </a>
-                <div className="nav-inner">
-                    <a className="nav-item" href="/menu">Menu</a>
-                    <a className="nav-item"href="/better">Better Food</a>
-                    <a className="nav-item"href="/reviews">Find Us</a>
-                    <a className="nav-item-spacer"href="/nana"></a>
-                    <a className="nav-item"href="https://discord.com/invite/samurai">Work With US</a>
-                    <a className="nav-item" href="/reviews">Reviews</a>
-                    <a className="nav-item-order"href="/menu">
-                        <span className="order-now-img"> </span>
-                        <span> Order Now </span>
-                    </a>
-                </div>
-
+        <div className="container-inner">
+            <a className="nav-logo" href="/papu"> <img src="/logo.svg" alt="app-logo" /> </a>
+            <div className="nav-inner">
+                <a className="nav-item" href="/menu">Menu</a>
+                <a className="nav-item"href="/better">Better Food</a>
+                <a className="nav-item"href="/reviews">Find Us</a>
+                <a className="nav-item-spacer"href="/nana"></a>
+                <a className="nav-item"href="https://discord.com/invite/samurai">Work With US</a>
+                <a className="nav-item" href="/reviews">Reviews</a>
+                <a className="nav-item-order"href="/menu">
+                    <span className="order-now-img"> </span>
+                    <span> Order Now </span>
+                </a>
             </div>
-        </Container>
-    </nav>
+
+        </div>
+    </Container>
+</nav>
 }
