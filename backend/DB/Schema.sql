@@ -402,7 +402,60 @@ END;
 
 ------------------------------------------------
 
+--procedure to change status of order to delivered
 
+-- CREATE PROCEDURE ChangeOrderStatusToDelivered
+-- @OrderID INT
+-- AS
+-- BEGIN
+--     SET NOCOUNT ON;
+    
+--     UPDATE [Order]
+--     SET Status = 'Delivered', DeliveryDate = GETDATE()
+--     WHERE ID = @OrderID
+
+--     --return a message
+--     SELECT 'Order status changed to delivered'
+
+    
+-- END;
+
+-- --exec ChangeOrderStatusToDelivered 3;
+
+
+-- ------------------------------------------------
+
+-- -- procedure to change status of order to cancelled
+
+-- CREATE PROCEDURE ChangeOrderStatusToCancelled
+-- @OrderID INT
+-- AS
+-- BEGIN
+--     SET NOCOUNT ON;
+    
+--     UPDATE [Order]
+--     SET Status = 'Cancelled', DeliveryDate = GETDATE()
+--     WHERE ID = @OrderID
+
+--     --return a message
+--     SELECT 'Order status changed to cancelled'
+
+    
+-- END;
+
+
+
+-- change status of order to cancelled and delivery date to null
+
+-- update [Order]
+-- set Status = 'Pending', DeliveryDate = null
+-- where ID = 3;
+
+
+
+-- add a order with status pending and delivery date null and deliveryboy id is 3
+
+-- insert into [Order] (CustomerID, DeliveryBoyID, OrderDate, TotalAmount, Status, PaymentMethod) values (1, 3, '2022-03-08 12:45:00', 27.97, 'Pending', 'Cash');
 
 
 

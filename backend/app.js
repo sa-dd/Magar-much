@@ -432,6 +432,30 @@ router.route('/orderdetails').get((request, response) => {
 
 })
 
+// change order status to delivered
+
+// http://localhost:8080/api/orderdelivered/1
+
+router.route('/orderdelivered/:id').put((request, response) => {
+    dboperations.changeStatusToDelivered(request.params.id).then(result => {
+        response.status(201).json(result[0]);
+    })
+
+})
+
+
+// change order status to cancelled
+
+// http://localhost:8080/api/ordercancelled/1
+
+router.route('/ordercancelled/:id').put((request, response) => {
+    dboperations.changeStatusToCancelled(request.params.id).then(result => {
+        response.status(201).json(result[0]);
+    })
+
+})
+    
+
 
 // get orderdetail by id
 
