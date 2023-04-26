@@ -12,7 +12,7 @@
     <!-- Your HTML content goes here -->
 
     <div class="container">
-        <h1>Delivery Boy Orders</h1>
+        <h1>Your Orders: </h1>
         <table class="table" id="orders-table">
             <thead>
                 <tr>
@@ -24,6 +24,7 @@
                     <th>Total Amount</th>
                     <th>Status</th>
                     <th>Payment Method</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,6 +102,11 @@
             <td>${order.TotalAmount}</td>
             <td>${order.Status}</td>
             <td>${order.PaymentMethod}</td>
+            <td>
+                <button class="btn btn-success" onclick="orderdelivered(${order.ID})">Delivered</button>
+            </td>
+
+
         `;
 
                 tableBody.appendChild(row);
@@ -132,7 +138,34 @@
             window.location.href = "login.html";
         });
 
-        
+
+
+        async function orderdelivered(OrderID)
+        {
+            const response = await fetch(`http://localhost:8080/api/orderdelivered/${OrderID}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+
+            });
+
+            if (response.status === 201) {
+                alert("Order Delivered");
+                window.location.reload();
+            }
+            else {
+                alert("Something went wrong");
+            }
+
+        }
+
+
+
+
+
+
+
 
 
     </script>

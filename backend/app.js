@@ -419,6 +419,44 @@ router.route('/orders/:id').delete((request, response) => {
 })
 
 
+// change order status to delivered
+
+// http://localhost:8080/api/orderdelivered/1
+
+router.route('/orderdelivered/:id').put((request, response) => {
+    dboperations.changeStatusToDelivered(request.params.id).then(result => {
+        response.status(201).json(result[0]);
+    })
+
+})
+
+
+// change order status to cancelled
+
+// http://localhost:8080/api/ordercancelled/1
+
+router.route('/ordercancelled/:id').put((request, response) => {
+    dboperations.changeStatusToCancelled(request.params.id).then(result => {
+        response.status(201).json(result[0]);
+    })
+
+})
+
+// change order status to In Progress
+
+// http://localhost:8080/api/orderinprogress/1
+
+router.route('/orderinprogress/:id').put((request, response) => {
+    dboperations.changeStatusToInProgress(request.params.id).then(result => {
+        response.status(201).json(result[0]);
+    })
+
+
+})
+
+
+
+
 // get all orderdetails
 
 // http://localhost:8080/api/orderdetails
@@ -431,6 +469,9 @@ router.route('/orderdetails').get((request, response) => {
     })
 
 })
+
+
+    
 
 
 // get orderdetail by id
@@ -685,6 +726,9 @@ router.route('/takeorderdetail').post((request, response) => {
     })
 
 })
+
+
+
 
 
 

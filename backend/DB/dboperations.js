@@ -645,6 +645,70 @@ async function deleteOrder(id) {
 
 }
 
+// function to change status of an order to delivered
+
+async function changeStatusToDelivered(id) {
+
+    try {
+        let pool = await sql.connect(config);
+        let updateorder = await pool.request()
+            .input('Id', sql.Int, id)
+            .query("UPDATE [Order] SET Status = 'Delivered', DeliveryDate = GETDATE() WHERE ID = @Id");
+
+        return updateorder.recordsets;
+
+    }
+    catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
+// function to change status of an order to cancelled
+
+async function changeStatusToCancelled(id) {
+
+    try {
+        let pool = await sql.connect(config);
+        let updateorder = await pool.request()
+            .input('Id', sql.Int, id)
+            .query("UPDATE [Order] SET Status = 'Cancelled', DeliveryDate = GETDATE() WHERE ID = @Id");
+
+        return updateorder.recordsets;
+
+    }
+    catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
+//function to change status of an order to in progress
+
+async function changeStatusToInProgress(id) {
+
+    try {
+        let pool = await sql.connect(config);
+        let updateorder = await pool.request()
+            .input('Id', sql.Int, id)
+            .query("UPDATE [Order] SET Status = 'In Progress', DeliveryDate = NULL WHERE ID = @Id");
+
+        return updateorder.recordsets;
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+    }
+
+}
+
 
 // CREATE TABLE OrderDetails (
 //     OrderID INT NOT NULL FOREIGN KEY REFERENCES [Order](ID),
@@ -1147,7 +1211,10 @@ module.exports =
     updateReview: updateReview,
     deleteReview: deleteReview,
     takeOrder: takeOrder,
-    takeOrderDetails: takeOrderDetails
+    takeOrderDetails: takeOrderDetails,
+    changeStatusToDelivered: changeStatusToDelivered,
+    changeStatusToCancelled: changeStatusToCancelled,
+    changeStatusToInProgress: changeStatusToInProgress,
 
 
 

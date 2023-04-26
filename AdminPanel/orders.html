@@ -47,6 +47,7 @@
                     <th>Status</th>
                     <th>Payment Method</th>
                     <th>Order Details</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,11 +83,15 @@
                 row.insertCell(-1).innerText = order.CustomerID;
                 row.insertCell(-1).innerText = order.DeliveryBoyID;
                 row.insertCell(-1).innerText = new Date(order.OrderDate);
-                row.insertCell(-1).innerText = new Date(order.DeliveryDate);
+                // also add check for null delivery date
+                row.insertCell(-1).innerText = order.DeliveryDate ? new Date(order.DeliveryDate) : "";
                 row.insertCell(-1).innerText = deliboy.AreaCodeID;
                 row.insertCell(-1).innerText = order.TotalAmount.toFixed(2);
                 row.insertCell(-1).innerText = order.Status;
                 row.insertCell(-1).innerText = order.PaymentMethod;
+                
+
+
 
                 const orderItemsCell = row.insertCell(-1);
                 orderItems.forEach(item => {
@@ -95,8 +100,126 @@
                     itemElement.textContent = `${foodItem.Name} (${item.Quantity}) - ${item.Price.toFixed(2)}`;
                     orderItemsCell.appendChild(itemElement);
                 });
+
+
+
+                // add in progress button to each row to change the status of the order to in progress
+                const actionCell = row.insertCell(-1);
+
+                const inprogressButton = document.createElement("button");
+                inprogressButton.classList.add("btn", "btn-primary", "order-inprogress");
+                inprogressButton.dataset.orderid = order.ID;
+                inprogressButton.textContent = "In Progress";
+                actionCell.appendChild(inprogressButton);
+
+
+
+                // add button to each row to change the status of the order to cancelled or delivered
+               
+                const deliveredButton = document.createElement("button");
+                deliveredButton.classList.add("btn", "btn-success", "order-delivered");
+                deliveredButton.dataset.orderid = order.ID;
+                deliveredButton.textContent = "Delivered";
+                actionCell.appendChild(deliveredButton);
+
+
+
+                const cancelButton = document.createElement("button");
+                cancelButton.classList.add("btn", "btn-danger", "order-cancelled");
+                cancelButton.dataset.orderid = order.ID;
+                cancelButton.textContent = "Cancelled";
+                actionCell.appendChild(cancelButton);
+
             });
         })();
+
+
+        // add button to each row to change the status of the order to cancelled or delivered 
+
+        async function orderdelivered(OrderID)
+        {
+            const response = await fetch(`http://localhost:8080/api/orderdelivered/${OrderID}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+
+            });
+
+            if (response.status === 201) {
+                alert("Order Delivered");
+                window.location.reload();
+            }
+            else {
+                alert("Something went wrong");
+            }
+
+        }
+
+        async function ordercancelled(OrderID)
+        {
+            const response = await fetch(`http://localhost:8080/api/ordercancelled/${OrderID}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+
+            });
+
+            if (response.status === 201) {
+                alert("Order Cancelled");
+                window.location.reload();
+            }
+            else {
+                alert("Something went wrong");
+            }
+
+        }
+
+        async function orderinprogress(OrderID)
+        {
+            const response = await fetch(`http://localhost:8080/api/orderinprogress/${OrderID}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+
+            });
+
+            if (response.status === 201) {
+                alert("Order In Progress");
+                window.location.reload();
+            }
+            else {
+                alert("Something went wrong");
+            }
+
+        }
+
+
+        // add event listener to the button to change the status of the order to cancelled or delivered
+
+        document.addEventListener("click", function(e) {
+            if (e.target.classList.contains("order-delivered")) {
+                const orderID = e.target.dataset.orderid;
+                orderdelivered(orderID);
+            }
+            else if (e.target.classList.contains("order-cancelled")) {
+                const orderID = e.target.dataset.orderid;
+                ordercancelled(orderID);
+            }
+            else if (e.target.classList.contains("order-inprogress")) {
+                const orderID = e.target.dataset.orderid;
+                orderinprogress(orderID);
+            }
+        });
+
+
+
+
+
+
+        
 
     </script>
 </body>
