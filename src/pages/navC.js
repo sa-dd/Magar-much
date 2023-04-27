@@ -86,6 +86,10 @@ export default function Nav(props){
         setEmail(e.target.value);
     }
 
+    const storage = ()=>{
+        return localStorage.isLoggedIn
+    }
+
     return <nav className={`${stickyClass}`}>
         <Container maxWidth="xl"> 
             <div className="login-sub"> 

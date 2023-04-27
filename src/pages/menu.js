@@ -28,6 +28,7 @@ export default function About(props) {
     const [cartItems, setCartItems] = useState([]);
     const [cartItemQuantity, setCartItemQuantity] = useState({});
     const [total, setTotal] = useState(0);
+    const [orderid, setOrderid] = useState(0);
 
     const [changeWidth, setChangeWidth] = useState(30);
     const handleOption= (event) => {
@@ -44,8 +45,36 @@ export default function About(props) {
         setTotal(newTotal);
     }, [cartItems, cartItemQuantity]);
 
+    useEffect(() => {
+        if(orderid){
+            cartItems.map((item) => {
+
+                const food = {
+                    OrderID: orderid,
+                    FoodItemID: item.ID,
+                    Quantity: cartItemQuantity[item.ID]
+                }
+
+                fetch('http://localhost:8080/api/takeorderdetail', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(food)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            }) 
+
+        }
+    }, [orderid])
+
     const handleClick = (key) => {
-        console.log(localStorage.user);
         setMoveItems(-100);
         setChangeWidth(40);    
         setChangeWidthx(80);
@@ -63,7 +92,7 @@ export default function About(props) {
     const handleOrder = () => {
         let orderID = 0;
         const data = {
-            CustomerID: 1,
+            CustomerID: JSON.parse(localStorage.user).ID,
             OrderDate: '2022-03-08 12:45:00',
             TotalAmount: total.toFixed(2),
             Status: "pending",
@@ -78,36 +107,14 @@ export default function About(props) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('Success:', data[0][""]);
-                orderID = data[0][""];
+                setOrderid(data[0][""])
+                console.log('Success:', orderid);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
 
-        cartItems.map((item) => {
 
-            const food = {
-                OrderID: 15,
-                FoodItemID: item.ID,
-                Quantity: cartItemQuantity[item.ID]
-            }
-
-        fetch('http://localhost:8080/api/takeorderdetail', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(food)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        })
     }
 
     const itemContStyle = {
