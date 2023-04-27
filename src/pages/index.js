@@ -6,9 +6,24 @@ import Cont from './footer'
 import Cont1 from './container1'
 import Cont2 from './container2'
 import Container from '@mui/material/Container'
+import Reviews from './reviews'
 import {useEffect, useState} from 'react'
 
-export default function Home() {
+
+export async function getServerSideProps() {
+
+    const userRequest = await fetch('http://localhost:8080/api/customers');
+    const userData = await userRequest.json();
+    return {
+        props: {
+            items: userData,
+        }
+    };
+
+}
+
+
+export default function Home(props) {
 
     return (
         <>
@@ -24,7 +39,7 @@ export default function Home() {
             </div>
             <div className='main-container'>
                 <Container maxWidth="xl">
-                    <Nav/>
+                    <Nav customers={props}/>
                 </Container>
                 <Cont1 />
                 <Cont2 />

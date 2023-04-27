@@ -721,7 +721,7 @@ router.route('/takeorder').post((request, response) => {
 
 router.route('/takeorderdetail').post((request, response) => {
     let orderdetail = { ...request.body };
-    dboperations.takeOrderDetail(orderdetail).then(result => {
+    dboperations.takeOrderDetails(orderdetail).then(result => {
         response.status(201).json(result[0]);
     })
 

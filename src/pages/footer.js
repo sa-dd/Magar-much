@@ -5,7 +5,7 @@ export default function Contact(){
     return <div className='footer-mam'>
         <div className="footer-contact">
             <div className='footer-contact-box'>
-                <span className='logo-footer' ><img src='/logo.svg' alt='logo-haha' /> </span>
+                <span className='logo-footer' ><img src='/logo1.svg' alt='logo-haha' /> </span>
                 <div className='list'>
                 <span> FAQ</span>
                 <span> Contact US</span> 

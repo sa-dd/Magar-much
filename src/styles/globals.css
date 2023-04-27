@@ -235,7 +235,7 @@ Navbar{
 .modal-content{
     display: flex;
     width: 50%;
-    height: 80%;
+    height: 70%;
     background-color: black;
     border-radius: 50px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
@@ -277,7 +277,7 @@ Navbar{
 .modal-text{
     display: flex;
     flex-direction: column;
-    height: 45%;
+    height: 60%;
     width: 80%;
     align-items: center;
 }
@@ -489,13 +489,15 @@ Navbar{
     max-width: 100%;
     height: 3000px;
     justify-content: space-between;
+    overflow: hidden;
 }
+
 
 .footer-mam{
     display:flex;
     max-width: 100%;
     height: 400px;
-    margin-top: 700px;
+    margin-top: 300px;
     overflow-y: hidden;
 }
 
@@ -872,8 +874,60 @@ Navbar{
 
 .ad2-burger{
     width: 50%;
-    background-color:gray ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
 }
+
+.ad2-burger-bg{
+    background-color: red;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    mask: url('/image2.svg');
+    mask-mode: luminance;
+
+}
+
+.ad2-burger img{
+    position: absolute;
+    width: 40%;
+    flex-grow: 0;
+    left: 1800px;
+}
+
+.carousel-container{
+    width: 100%;
+    background-color: black;
+    height: 25%;
+    margin-top: 200px;
+    color: white;
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+    
+    font-size: 50px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.reviews-container{
+    display: flex;
+}
+
+.review{
+    background-color: red;
+    
+}
+
 .about-cont{
     display: flex;
     flex-direction: column;

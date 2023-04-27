@@ -12,7 +12,7 @@ export default function Container_ad1(){
                 <span className="header2">Chicken.</span>
             </div>
             <span className="para">Satisfy your cravings and try our new <span> Magar Muchh!</span> Fried Chicken range, which is 40% bigger than other fried chicken burgers, with a Big, Thick, Crunchy, Juicy whole muscle chicken breast that delivers an epic eating experience with every bite. </span>
-            <a className="button" href="/"> VIEW MENU </a>
+            <a className="button" href="/menu"> VIEW MENU </a>
 
         </div>
     </div>

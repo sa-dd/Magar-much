@@ -1,8 +1,11 @@
-import { TextField} from '@mui/material';
+import { TextField, Typography} from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import Container from '@mui/material/Container'
 import {useEffect, useState} from 'react'
 import Modal from './modal'
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const CssTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -26,11 +29,24 @@ const CssTextField = styled(TextField)({
     },      
 });
 
-export default function Nav(){
+export default function Nav(props){
     const [stickyClass, setSticky] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const [error, setError] = useState(false);
+    const [user, setUser] = useState({});
+    const [logged, setLogged] = useState(false);
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     useEffect ( () => {
 
@@ -54,7 +70,6 @@ export default function Nav(){
                     setSticky("no-login");
                     flag = false;
                 }
-                console.log(`old dir ${oldDir}`);
                 oldDir = window.scrollY;
 
             }
@@ -77,9 +92,39 @@ export default function Nav(){
                 <div className="login-sub-icons">
                     <div className="login-sub-icons-button">
                         <div className="login-sub-icons-button-img"> </div>
-                        <button onClick={()=> setShowModal(!showModal)}> Sign In</button>
-                    </div>
-                </div>
+        {logged ? ( <div className='userName'> <Button id="basic-button"
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+            >
+            {localStorage.username} 
+        </Button>
+        <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+                'aria-labelledby': 'basic-button',
+            }}
+            >
+                <MenuItem onClick={handleClose}>Dashboard</MenuItem>
+                <MenuItem onClick={()=>{
+                    localStorage.removeItem('user_data'); 
+                    localStorage.removeItem('username');
+                    localStorage.setItem('isLoggedIn', false);
+                    setLogged(false)}
+                }
+            >Logout</MenuItem>
+
+
+    </Menu>
+</div>
+
+        ) :(<button onClick={()=> setShowModal(!showModal)}> Sign In</button>)}
+    </div>
+</div>
             </div>
         </Container>
 
@@ -97,37 +142,72 @@ export default function Nav(){
                         <span className='modal-join-text'> Join us now to get 50% off promo on your first order and get our premium membership for the first month free.</span>
                     </div>
                     <div className='modal-actual-form'>
-                        <CssTextField id="outlined-basic" value={email} onChange={handleEmail} label="Email" variant="outlined" color='secondary' InputLabelProps={{ style: { color: 'white' } }}  sx={{'& .MuiOutlinedInput-input' : { color: 'white'}}}/>
-                        <CssTextField id="outlined-basic"  value={pass} onChange = {(event) => setPass(event.target.value)} label="Password" variant="outlined" color='secondary' InputLabelProps={{ style: { color: 'white' } }} sx={{'& .MuiOutlinedInput-input' : { color: 'white'}}} />
-                    </div>
-                    <button className='modal-signin' onClick={() =>{
-                        console.log('Email', email)
-                        console.log('Password', pass)
-                    }
-                    }> Sign In </button>
-                <button className='modal-close' onClick={()=> setShowModal(!showModal)}>X</button>
-            </div>
+                        <CssTextField id="outlined-basic"  helperText= {error ? 'Wrong password or email' : ''} value={email} onChange={handleEmail} label="Email" variant="outlined" color='secondary' InputLabelProps={{ style: { color: 'white' } }}  sx={{'& .MuiOutlinedInput-input' : { color: 'white'}}}/>
+                        <CssTextField id="outlined-basic"   helperText={
+                            error ? (
+                                <Typography variant="caption" color="error">
+                                Wrong password or email 
+                            </Typography>
+                            ) : (
+                                ''
+                            )
+                        } type='password' value={pass} onChange = {(event) => setPass(event.target.value)} label="Password" variant="outlined" color='secondary' InputLabelProps={{ style: { color: 'white' } }} sx={{'& .MuiOutlinedInput-input' : { color: 'white'}}} />
+                </div>
+                <button className='modal-signin' onClick={(event) =>{
+                    console.log('Email', email)
+                    console.log('Password', pass)
+                    props.customers.items.map((cust) =>{
+                        if(cust.Email == email){
+                            if(cust.Password == pass) {
+                                console.log("Sucess");
+                                setUser(cust);
+                                setShowModal(!showModal); 
+                                setLogged(true); 
+                                event.preventDefault();
+
+                                // Perform authentication logic here
+                                // ...
+
+                                // Store user information in local storage
+                                localStorage.setItem('username', cust.Name);
+                                localStorage.setItem('isLoggedIn', true);
+                                const user = JSON.stringify(cust);
+
+                                localStorage.setItem('user', user);
+                            }
+                            else{
+                                console.log("Login failed")
+
+                                setError(true);
+                            }
+                        }
+
+                    })
+                }
+                }> Sign In </button>
+            <button className='modal-close' onClick={()=> setShowModal(!showModal)}>X</button>
         </div>
     </div>
+</div>
 
-    <Container maxWidth="xl"> 
+<Container maxWidth="xl"> 
 
-        <div className="container-inner">
-            <a className="nav-logo" href="/papu"> <img src="/logo.svg" alt="app-logo" /> </a>
-            <div className="nav-inner">
-                <a className="nav-item" href="/menu">Menu</a>
-                <a className="nav-item"href="/better">Better Food</a>
-                <a className="nav-item"href="/reviews">Find Us</a>
-                <a className="nav-item-spacer"href="/nana"></a>
-                <a className="nav-item"href="https://discord.com/invite/samurai">Work With US</a>
-                <a className="nav-item" href="/reviews">Reviews</a>
-                <a className="nav-item-order"href="/menu">
-                    <span className="order-now-img"> </span>
-                    <span> Order Now </span>
-                </a>
-            </div>
-
+    <div className="container-inner">
+        <a className="nav-logo" href="/papu"> <img src="/logo1.svg" alt="app-logo" /> </a>
+        <div className="nav-inner">
+            <a className="nav-item" href="/menu">Menu</a>
+            <a className="nav-item"href="/better">Better Food</a>
+            <a className="nav-item"href="/reviews">Find Us</a>
+            <a className="nav-item-spacer"href="/nana"></a>
+            <a className="nav-item"href="https://discord.com/invite/samurai">Community</a>
+            <a className="nav-item" href="/reviews">Reviews</a>
+            <a className="nav-item-order"href="/menu">
+                <span className="order-now-img"> </span>
+                <span> Order Now </span>
+            </a>
         </div>
-    </Container>
+
+    </div>
+</Container>
 </nav>
 }

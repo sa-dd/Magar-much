@@ -45,7 +45,7 @@ export default function About(props) {
     }, [cartItems, cartItemQuantity]);
 
     const handleClick = (key) => {
-        console.log(key);
+        console.log(localStorage.user);
         setMoveItems(-100);
         setChangeWidth(40);    
         setChangeWidthx(80);
@@ -60,7 +60,55 @@ export default function About(props) {
         setShowCart(true);
     }
 
+    const handleOrder = () => {
+        let orderID = 0;
+        const data = {
+            CustomerID: 1,
+            OrderDate: '2022-03-08 12:45:00',
+            TotalAmount: total.toFixed(2),
+            Status: "pending",
+            PaymentMethod: "Credit Card", 
+        }
+        fetch('http://localhost:8080/api/takeorder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data[0][""]);
+                orderID = data[0][""];
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
 
+        cartItems.map((item) => {
+
+            const food = {
+                OrderID: 15,
+                FoodItemID: item.ID,
+                Quantity: cartItemQuantity[item.ID]
+            }
+
+        fetch('http://localhost:8080/api/takeorderdetail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(food)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        })
+    }
 
     const itemContStyle = {
         width: `${changeWidth}%` 
@@ -74,7 +122,7 @@ export default function About(props) {
             <div className='section1'>
                 <span className='menu-bg-text'> In <span className='mgt1'>burgers </span>we trust, our hearts doth crave Juicy, savory, and oh so brave With <span className='mgt1'>buns </span> that cradle their meaty The sizzle and pop, the smell divine We long for that patty, so fine A </span>
                 <div className='menu'>
-                    <span className='menu-title'><span className='m'>M</span><span className='e'>E</span><span className='n'>N</span><span className='u'>U</span><span className='s'>S</span>  </span>
+                    <motion.span className='menu-title'><span className='m'>M</span><span className='e'>E</span><span className='n'>N</span><span className='u'>U</span><span className='s'>S</span>  </motion.span>
                     <span className='menu-para'> A culinary tour of <span>BBQ</span> traditions from around this great nation and this beautiful planet. 1.8 million years ago, humans first began cooking meat with fire. For some reason, this hasn’t led to world peace, but we’re pretty sure if we fire up enough <span>BBQ</span>, it will.</span>
                 </div>
                 <div className="arrow bounce">
@@ -159,9 +207,14 @@ export default function About(props) {
         }
 
     </motion.div>
-        { showCart ? <motion.div  initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1, x:-100 }} transition={{ duration: 0.8, delay: 2, ease: [0, 0.71, 0.2, 1.01]}} className='cart'>
+        { showCart ? <motion.div  initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1, x:-100 }} transition={{ duration: 0.8, delay: 2, ease: [0, 0.71, 0.2, 1.01]}}  drag
+            dragConstraints={{
+                top: -300,
+                    left: -100,
+                    right: -80,
+                    bottom: 9600,}} className='cart'>
 
-            <div className='cart-title'> Cart </div>
+                    <div className='cart-title'> Cart </div>
             {
 
             <div className='cart-item-cont' >
@@ -183,7 +236,7 @@ export default function About(props) {
             <div className='cart-other'> 
                 <div className='cart-bill'> <span>Total : </span> {<div> ${total.toFixed(2)} </div>}</div>
                 <div className='cart-promo'>{<TextField id="outlined-basic" label="Enter Promo Code" variant="outlined" color='secondary'/>} </div>
-                <button className='cart-checkout'> Checkout </button>
+                <button onClick={handleOrder}className='cart-checkout'> Checkout </button>
             </div>
     </motion.div> : null }
 </div>
