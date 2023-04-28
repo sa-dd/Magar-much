@@ -6,6 +6,9 @@ import Modal from './modal'
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useRouter } from 'next/router'
+import { BeatLoader } from 'react-spinners';
+
 
 const CssTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -37,6 +40,8 @@ export default function Nav(props){
     const [error, setError] = useState(false);
     const [user, setUser] = useState({});
     const [logged, setLogged] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -47,6 +52,20 @@ export default function Nav(props){
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const goToPage = ()=> {
+        const router = useRouter()
+        router.push('/dashboard')
+    }
+
+
+
+    useEffect(() => {
+        const storedLogin = localStorage.getItem('isLoggedIn');
+        if (storedLogin === 'true') {
+            setLogged(true);
+        }
+    }, []);
 
     useEffect ( () => {
 
@@ -86,9 +105,6 @@ export default function Nav(props){
         setEmail(e.target.value);
     }
 
-    const storage = ()=>{
-        return localStorage.isLoggedIn
-    }
 
     return <nav className={`${stickyClass}`}>
         <Container maxWidth="xl"> 
@@ -96,37 +112,17 @@ export default function Nav(props){
                 <div className="login-sub-icons">
                     <div className="login-sub-icons-button">
                         <div className="login-sub-icons-button-img"> </div>
-        {logged ? ( <div className='userName'> <Button id="basic-button"
-            aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
-            >
-            {localStorage.username} 
-        </Button>
-        <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-                'aria-labelledby': 'basic-button',
-            }}
-            >
-                <MenuItem onClick={handleClose}>Dashboard</MenuItem>
+        {logged ? (<div> <Button id="basic-button" aria-controls={open ? 'basic-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>{localStorage.username} </Button>
+            <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose} MenuListProps={{'aria-labelledby': 'basic-button',}}>
+                <MenuItem onClick={goToPage}>Dashboard</MenuItem>
                 <MenuItem onClick={()=>{
                     localStorage.removeItem('user_data'); 
                     localStorage.removeItem('username');
                     localStorage.setItem('isLoggedIn', false);
-                    setLogged(false)}
-                }
-            >Logout</MenuItem>
+                    setLogged(false)}}> Logout</MenuItem>
+            </Menu>
 
-
-    </Menu>
-</div>
-
-        ) :(<button onClick={()=> setShowModal(!showModal)}> Sign In</button>)}
+        </div>) : (<button onClick={()=> setShowModal(!showModal)}>Sign In</button>)}
     </div>
 </div>
             </div>

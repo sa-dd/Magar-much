@@ -6,6 +6,8 @@ import {useRef, useState, useEffect} from 'react'
 import { TextField} from '@mui/material'
 import { motion } from "framer-motion"
 import { width } from '@mui/system'
+import Draggable from 'react-draggable';
+
 
 export async function getServerSideProps() {
 
@@ -21,6 +23,7 @@ export async function getServerSideProps() {
 
 export default function About(props) {
     const quantity = useRef(null);
+    const [disabled, setDisabled] = useState(true);
     const [selectedOption, setSelectedOption] = useState('Featured');
     const [showCart, setShowCart] = useState(false);
     const [moveItems, setMoveItems] = useState(0); 
@@ -31,6 +34,8 @@ export default function About(props) {
     const [orderid, setOrderid] = useState(0);
 
     const [changeWidth, setChangeWidth] = useState(30);
+    const [scale, setScale] = useState(1);
+    const [y, setY] = useState(0);
     const handleOption= (event) => {
         setSelectedOption(event.target.value);
     }
@@ -75,9 +80,10 @@ export default function About(props) {
     }, [orderid])
 
     const handleClick = (key) => {
-        setMoveItems(-100);
-        setChangeWidth(40);    
-        setChangeWidthx(80);
+        setChangeWidth(40)
+        setMoveItems(-40);
+        setScale(1);
+        setY(-80);
 
         if(cartItemQuantity[key] === undefined)
             setCartItems([...cartItems, props.items[key-1]])  // adding items to the cart
@@ -93,7 +99,6 @@ export default function About(props) {
         let orderID = 0;
         const data = {
             CustomerID: JSON.parse(localStorage.user).ID,
-            OrderDate: '2022-03-08 12:45:00',
             TotalAmount: total.toFixed(2),
             Status: "pending",
             PaymentMethod: "Credit Card", 
@@ -129,7 +134,7 @@ export default function About(props) {
             <div className='section1'>
                 <span className='menu-bg-text'> In <span className='mgt1'>burgers </span>we trust, our hearts doth crave Juicy, savory, and oh so brave With <span className='mgt1'>buns </span> that cradle their meaty The sizzle and pop, the smell divine We long for that patty, so fine A </span>
                 <div className='menu'>
-                    <motion.span className='menu-title'><span className='m'>M</span><span className='e'>E</span><span className='n'>N</span><span className='u'>U</span><span className='s'>S</span>  </motion.span>
+                    <motion.span className='menu-title' whileHover={{ scale: 1.1 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}> <span className='m'>M</span><span className='e'>E</span><span className='n'>N</span><span className='u'>U</span><span className='s'>S</span>  </motion.span>
                     <span className='menu-para'> A culinary tour of <span>BBQ</span> traditions from around this great nation and this beautiful planet. 1.8 million years ago, humans first began cooking meat with fire. For some reason, this hasn’t led to world peace, but we’re pretty sure if we fire up enough <span>BBQ</span>, it will.</span>
                 </div>
                 <div className="arrow bounce">
@@ -195,11 +200,11 @@ export default function About(props) {
                 </div>
 
                 <div className='menu-container'> 
-                    <motion.div animate={{ x: moveItems }} transition={{ delay: 2 }} className='food-cont' style={foodContStyle}>
+                    <motion.div animate={{ x: moveItems, scale: scale, y:y}} transition={{ delay: 0, ease: "easeInOut" }} className='food-cont'>
         {
             props.items.map((item)=>(
                 (item.Category === selectedOption)? (
-                    <motion.div animate={{ y: 50 }}  className='item-cont' key={item.ID}   transition={{ delay: 0.5 }} style = {itemContStyle}>
+                    <motion.div animate={{ y: 50 }} style = {itemContStyle} className='item-cont' key={item.ID} transition={{ delay: 0.5 }}>
                         <div className='item-cont-text'>
                             <span className='item-name'> {item.Name}</span>
                             <span className='item-desc'> {item.Description} </span>
@@ -214,12 +219,12 @@ export default function About(props) {
         }
 
     </motion.div>
-        { showCart ? <motion.div  initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1, x:-100 }} transition={{ duration: 0.8, delay: 2, ease: [0, 0.71, 0.2, 1.01]}}  drag
+        { showCart ? <motion.div  initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1, x:-50 }} transition={{ duration: 0.8, delay: 0.5, ease: [0, 0.71, 0.2, 1.01]}}  drag
             dragConstraints={{
                 top: -300,
-                    left: -100,
+                    left: -120,
                     right: -80,
-                    bottom: 9600,}} className='cart'>
+                    bottom: 5000,}} className='cart'>
 
                     <div className='cart-title'> Cart </div>
             {
@@ -241,7 +246,7 @@ export default function About(props) {
             </div>
             }
             <div className='cart-other'> 
-                <div className='cart-bill'> <span>Total : </span> {<div> ${total.toFixed(2)} </div>}</div>
+                <div className='cart-bill'> <span>Your Total : </span> {<div> ${total.toFixed(2)} </div>}</div>
                 <div className='cart-promo'>{<TextField id="outlined-basic" label="Enter Promo Code" variant="outlined" color='secondary'/>} </div>
                 <button onClick={handleOrder}className='cart-checkout'> Checkout </button>
             </div>

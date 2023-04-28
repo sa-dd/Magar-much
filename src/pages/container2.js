@@ -41,7 +41,7 @@ export default function Container_ad2(){
 
         <div className="ad2-burger">
             <div className='ad2-burger-bg'>
-                <motion.img src='/f5.png' alt='flying-burger' animate={{ x: (trigger && -800) }} transition={{ delay: 0 }}/>
+               <motion.img src='/f5.png' alt='flying-burger' animate={{ x: (trigger && -800) }} transition={{ delay: 0 }}/>
             </div>
         </div>
     </div>

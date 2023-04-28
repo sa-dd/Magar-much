@@ -1097,11 +1097,10 @@ async function takeOrder(order) {
         let pool = await sql.connect(config);
         let insertorder = await pool.request()
             .input('CustomerID', sql.Int, order.CustomerID)
-            .input('OrderDate', sql.DateTime, order.OrderDate)
             .input('TotalAmount', sql.Money, order.TotalAmount)
             .input('Status', sql.VarChar, order.Status)
             .input('PaymentMethod', sql.VarChar, order.PaymentMethod)
-            .query("EXEC TakeOrder @CustomerID, @OrderDate, @TotalAmount, @Status, @PaymentMethod");
+            .query("EXEC TakeOrder @CustomerID, @TotalAmount, @Status, @PaymentMethod");
 
 
         return insertorder.recordsets;
