@@ -83,6 +83,9 @@ export default function About(props) {
     }, [orderid])
 
     const handleClick = (key) => {
+        localStorage.removeItem("cartList");
+        localStorage.removeItem("itemQuantity");
+
         setChangeWidth(40)
         setMoveItems(-40);
         setScale(1);
@@ -97,6 +100,8 @@ export default function About(props) {
             [key]: (prevState[key] || 0) + 1, // increment quantity by 1 or set to 1 if undefined
         }));
         setShowCart(true);
+        localStorage.setItem("cartList", JSON.stringify(cartItems));
+        localStorage.setItem("itemQuantity", JSON.stringify(cartItemQuantity));
     }
 
     const handleOrder = () => {
@@ -122,6 +127,7 @@ export default function About(props) {
             .catch((error) => {
                 console.error('Error:', error);
             });
+
 
 
     }
@@ -255,7 +261,7 @@ export default function About(props) {
             <div className='cart-other'> 
                 <div className='cart-bill'> <span>Your Total : </span> {<div> ${total.toFixed(2)} </div>}</div>
                 <div className='cart-promo'>{<TextField id="outlined-basic" label="Enter Promo Code" variant="outlined" color='secondary'/>} </div>
-                <button onClick={handleOrder}className='cart-checkout'> Checkout </button>
+                <a href='/checkout'className='cart-checkout'> Proceed To Checkout </a>
             </div>
     </motion.div> : null }
 </div>

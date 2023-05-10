@@ -58,6 +58,12 @@ export default function Nav(props){
         router.push('/dashboard')
     }
 
+    const buttonStyle = {
+        color: 'white',
+        width: '150px',
+        'margin-top': '5px'
+       // Add more styles as needed
+    };
 
 
     useEffect(() => {
@@ -112,7 +118,7 @@ export default function Nav(props){
                 <div className="login-sub-icons">
                     <div className="login-sub-icons-button">
                         <div className="login-sub-icons-button-img"> </div>
-        {logged ? (<div> <Button id="basic-button" aria-controls={open ? 'basic-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>{localStorage.username} </Button>
+        {logged ? (<div> <Button id="basic-button" aria-controls={open ? 'basic-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} style={buttonStyle} onClick={handleClick}>{localStorage.username} </Button>
             <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose} MenuListProps={{'aria-labelledby': 'basic-button',}}>
                 <MenuItem onClick={goToPage}>Dashboard</MenuItem>
                 <MenuItem onClick={()=>{
@@ -142,8 +148,8 @@ export default function Nav(props){
                         <span className='modal-join-text'> Join us now to get 50% off promo on your first order and get our premium membership for the first month free.</span>
                     </div>
                     <div className='modal-actual-form'>
-                        <CssTextField id="outlined-basic"  helperText= {error ? 'Wrong password or email' : ''} value={email} onChange={handleEmail} label="Email" variant="outlined" color='secondary' InputLabelProps={{ style: { color: 'white' } }}  sx={{'& .MuiOutlinedInput-input' : { color: 'white'}}}/>
-                        <CssTextField id="outlined-basic"   helperText={
+                        <CssTextField id="outlined-basic1"  helperText= {error ? 'Wrong password or email' : ''} value={email} onChange={handleEmail} label="Email" variant="outlined" color='secondary' InputLabelProps={{ style: { color: 'white' } }}  sx={{'& .MuiOutlinedInput-input' : { color: 'white'}}}/>
+                        <CssTextField id="outlined-basic2"   helperText={
                             error ? (
                                 <Typography variant="caption" color="error">
                                 Wrong password or email 

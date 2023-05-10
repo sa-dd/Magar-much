@@ -1,4 +1,5 @@
 @font-face{
+    justify-content: space-around;
     font-family: "block-pro-condensed";
     src: url('../../fonts/Block Pro Condensed Regular.ttf')
 }
@@ -1018,6 +1019,7 @@ food-section:hover{
 input[type="radio"]{
     appearance: none;
 }
+
 input[type="radio"]:checked + label img{
     filter: none;
 
@@ -1306,26 +1308,189 @@ input[type="radio"]:checked + label span{
 
 .cart-checkout{
     border: solid;
-    background-color: white;
+    background-color: black;
+    text-align: center;
     cursor: pointer;
     font-family: 'plakkta';
     font-size: 20px;
-    width: 30%;
-    height: 40px;
+    width: 40%;
+    height: 60px;
+    line-height: 20px;
     align-self: flex-end;
     margin-right: 50px;
     margin-bottom: 10px;
-    border-radius: 50px;
+    border-radius: 10px;
     transition: 0.3s;
+    padding-top: 8px;
 }
 
 .cart-checkout:hover{
     background-color: yellow;
-    width: 32%;
-    height: 42px;
+    width: 42%;
+    height: 62px;
+    background-color: white;
+    color: black;
 
 }
 
+.checkout{
+    background-color: yellowgreen;
+    width: 100%;
+    height: 100vh;
+    padding-top: 70px;
+    padding-left: 250px;
+}
+
+.order-sum{
+    font-size: 90px;
+    font-family: 'block-pro-regular';
+    border: solid;
+    border-radius: 10px;
+    width: 38%;
+    font-weight: 500;
+    background-color: rgba(0, 128, 128, 0.5);
+    text-align: center;
+}
+
+.summary-table{
+    display: flex;
+    margin-top: 50px;
+    width: 1400px;
+    height: 700px;
+    border: dotted;
+    background-color: rgb(0, 84, 84, .2);
+    border-top-left-radius: 50px 20px;
+    border-top-right-radius: 30px 60px;
+    border-bottom-left-radius: 20px 50px;
+    border-bottom-right-radius: 60px 30px;
+    padding-left: 50px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sum-item-cont{
+
+    display: flex;
+    flex-direction: column;
+    max-height: 600px;
+    overflow: auto;
+    width: 50%;
+    margin-top: 18px;
+    border: solid;
+    padding-left: 40px;
+
+    background-color: rgb(236, 95, 57, .3);
+}
+.sum-item-cont::-webkit-scrollbar {
+    display: none; /* hide the scrollbar on Webkit browsers */
+}
+
+
+
+.sum-item{
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+
+    margin-bottom: 18px;
+    border: solid;
+    width: 90%;
+    border-top-left-radius: 50px 20px;
+    border-top-right-radius: 30px 60px;
+    border-bottom-left-radius: 20px 50px;
+    border-bottom-right-radius: 60px 30px;
+    background-color: rgb(236, 234, 57, .5);
+}
+
+.sum-item span{
+    margin-left: 20px;
+    font-family: "londrina";
+    font-weight: 1000;
+    font-size: 30px;
+    border: solid;
+    background-color: teal;
+    width:380px;
+    text-align: center;
+}
+
+.sum-item-cont img{
+    width: 120px;
+    height: 90px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.bill{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 75%;
+    border: dotted;
+    background-color: teal;
+    margin-right: 50px;
+    margin-top: 25px;
+    border-top-left-radius: 50px 20px;
+    border-top-right-radius: 30px 60px;
+    border-bottom-left-radius: 20px 50px;
+    border-bottom-right-radius: 60px 30px;
+    padding-top: 40px;
+    padding-left: 20px;
+}
+
+.payment{
+   font-family: "block-pro-regular"; 
+   font-size: 35px;
+}
+
+.pay-title{
+    font-family: "londrina";
+    font-weight: 1000;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: black;
+    width: 190px;
+    font-size: 40px;
+}
+
+.pay-method{
+    margin-top: 50px;
+   display: flex; 
+}
+
+.p1{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: space-around;
+    padding-right: 20px;
+
+}
+
+.p1:hover{
+    cursor: pointer;
+}
+
+.p2:hover{
+
+    cursor: pointer;
+}
+.p2{
+    display: flex;
+    align-items: center;
+
+    padding-right: 20px;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.total-title{
+    margin-top: 50px;
+    font-family: 'londrina';
+    font-weight: 1000;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-size: 40px;
+}
 .arrow {
     display: flex;
     flex-direction: column;
