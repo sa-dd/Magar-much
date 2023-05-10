@@ -7,6 +7,7 @@ import { TextField} from '@mui/material'
 import { motion } from "framer-motion"
 import { width } from '@mui/system'
 import Draggable from 'react-draggable';
+import Image from 'next/image'
 
 
 export async function getServerSideProps() {
@@ -204,14 +205,14 @@ export default function About(props) {
         {
             props.items.map((item)=>(
                 (item.Category === selectedOption)? (
-                    <motion.div animate={{ y: 50 }} style = {itemContStyle} className='item-cont' key={item.ID} transition={{ delay: 0.5 }}>
+                    <motion.div animate={{ y: 50 }} style = {itemContStyle} className='item-cont' key={item.ID} transition={{ delay: 0.01, ease:'easeInOut', duration:0.8}}>
                         <div className='item-cont-text'>
                             <span className='item-name'> {item.Name}</span>
                             <span className='item-desc'> {item.Description} </span>
-                            <button onClick={()=>handleClick(item.ID)}>Add To Cart</button>
+                            <button className='add-to-cart' onClick={()=>handleClick(item.ID)}>Add To Cart</button>
                             <span className='item-price'> Price: <span className='ips'>${item.Price}</span> </span>
                         </div>
-                        <img src={`http://localhost:8080${item.Image}`} alt= "burger"/>
+                        <Image src={`${item.Image}`} alt= "burger" width={500} height={300}/>
                     </motion.div>
                 ) : null
             )
@@ -233,7 +234,9 @@ export default function About(props) {
                 {
                     cartItems.map((item)=>(
                         <div className='cart-item' key={item.ID}>
-                            <span className='cart-item-q'> {`${cartItemQuantity[item.ID]}x`} </span>
+                            <div className='quantity-cont'>
+                                <span className='cart-item-q'> {`${cartItemQuantity[item.ID]}x`} </span>
+                            </div>
                             <img src={`http://localhost:8080${item.Image}`} />
                             <div className='cart-item-details'>
                                 <span className='cart-item-name'>{item.Name} </span>
