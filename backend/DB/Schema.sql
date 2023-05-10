@@ -297,8 +297,7 @@ GO
 -- TakeOrder Procedure finds a suitable deliveryboy for the order and inserts the order into the database
 Create PROCEDURE TakeOrder
 @CustomerID INT,
-@OrderDate DATETIME,
-@TotalAmount MONEY,
+@TotalAmount DECIMAL(10,2),
 @Status VARCHAR(50),
 @PaymentMethod VARCHAR(50)
 AS
@@ -322,8 +321,8 @@ BEGIN
 
     -- Insert the order into the database
 
-    INSERT INTO [Order] (CustomerID, DeliveryBoyID, OrderDate, TotalAmount, Status, PaymentMethod)
-    VALUES (@CustomerID, @DeliveryBoyID, @OrderDate, @TotalAmount, @Status, @PaymentMethod);
+    INSERT INTO [Order] (CustomerID, DeliveryBoyID, TotalAmount, Status, PaymentMethod)
+    VALUES (@CustomerID, @DeliveryBoyID, @TotalAmount, @Status, @PaymentMethod);
 
     -- Return the order ID
     SELECT SCOPE_IDENTITY();
@@ -336,6 +335,8 @@ END;
 
 
 --EXEC TakeOrder 2, '2023-04-16 14:00:00', 27.97, 'Delivered', 'Cash';
+
+-- DROP PROCEDURE TakeOrder;
 
 
 
@@ -351,8 +352,8 @@ AS
 BEGIN
     SET NOCOUNT ON;
     
-    DECLARE @Price MONEY;
-    DECLARE @TotalAmount MONEY;
+    DECLARE @Price DECIMAL(10,2);
+    DECLARE @TotalAmount DECIMAL(10,2);
     
     -- Find the price of the food item
     SELECT @Price = Price
