@@ -33,11 +33,13 @@ export default function About(props) {
     const [cartItemQuantity, setCartItemQuantity] = useState({});
     const [total, setTotal] = useState(0);
     const [orderid, setOrderid] = useState(0);
+    const [trans, setTrans] = useState(0.5);
 
     const [changeWidth, setChangeWidth] = useState(30);
     const [scale, setScale] = useState(1);
     const [y, setY] = useState(0);
     const handleOption= (event) => {
+        setTrans(0.5);
         setSelectedOption(event.target.value);
     }
 
@@ -85,6 +87,7 @@ export default function About(props) {
         setMoveItems(-40);
         setScale(1);
         setY(-80);
+        setTrans(0);
 
         if(cartItemQuantity[key] === undefined)
             setCartItems([...cartItems, props.items[key-1]])  // adding items to the cart
@@ -124,7 +127,8 @@ export default function About(props) {
     }
 
     const itemContStyle = {
-        width: `${changeWidth}%` 
+        width: `${changeWidth}%`, 
+        transition: `${trans}s`
     };
 
     const foodContStyle = {
@@ -205,7 +209,7 @@ export default function About(props) {
         {
             props.items.map((item)=>(
                 (item.Category === selectedOption)? (
-                    <motion.div animate={{ y: 50 }} style = {itemContStyle} className='item-cont' key={item.ID} transition={{ delay: 0.01, ease:'easeInOut', duration:0.8}}>
+                    <motion.div animate={{ y: 50 }} style = {itemContStyle} className='item-cont' key={item.ID} transition={{ delay: -1}}>
                         <div className='item-cont-text'>
                             <span className='item-name'> {item.Name}</span>
                             <span className='item-desc'> {item.Description} </span>
