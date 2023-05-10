@@ -230,6 +230,7 @@ CREATE TABLE Review (
     Rating INT NOT NULL,
     Comment VARCHAR(500),
     ReviewDate DATETIME NOT NULL DEFAULT GETDATE(),
+    ItemID INT NOT NULL FOREIGN KEY REFERENCES FoodItem(ID),
     CONSTRAINT CK_Review_Rating CHECK (Rating >= 1 AND Rating <= 5)
 );
 
