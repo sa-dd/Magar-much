@@ -468,7 +468,7 @@ async function addDeliveryBoy(deliveryboy) {
             .input('AreaCodeID', sql.Int, deliveryboy.AreaCodeID)
             .input('Availability', sql.Bit, deliveryboy.Availability)
             .input('DeliveryCount', sql.Int, deliveryboy.DeliveryCount)
-            .input('Rating', sql.Decimal, deliveryboy.Rating)
+            .input('Rating', sql.Decimal(10,2), deliveryboy.Rating)
             .input('UserName', sql.NVarChar, deliveryboy.UserName)
             .input('Password', sql.NVarChar, deliveryboy.Password)
             .query("INSERT INTO DeliveryBoy (Name, Phone, AreaCodeID, Availability, DeliveryCount, Rating, UserName, Password) VALUES (@Name, @Phone, @AreaCodeID, @Availability, @DeliveryCount, @Rating, @UserName, @Password)");
@@ -495,7 +495,7 @@ async function updateDeliveryBoy(id, deliveryboy) {
             .input('AreaCodeID', sql.Int, deliveryboy.AreaCodeID)
             .input('Availability', sql.Bit, deliveryboy.Availability)
             .input('DeliveryCount', sql.Int, deliveryboy.DeliveryCount)
-            .input('Rating', sql.Decimal, deliveryboy.Rating)
+            .input('Rating', sql.Decimal(10,2), deliveryboy.Rating)
             .input('UserName', sql.NVarChar, deliveryboy.UserName)
             .input('Password', sql.NVarChar, deliveryboy.Password)
             .query("UPDATE DeliveryBoy SET Name = @Name, Phone = @Phone, AreaCodeID = @AreaCodeID, Availability = @Availability, DeliveryCount = @DeliveryCount, Rating = @Rating, UserName = @UserName, Password = @Password WHERE ID = @Id");
@@ -588,7 +588,7 @@ async function addOrder(order) {
             .input('DeliveryBoyID', sql.Int, order.DeliveryBoyID)
             .input('OrderDate', sql.DateTime, order.OrderDate)
             .input('DeliveryDate', sql.DateTime, order.DeliveryDate)
-            .input('TotalAmount', sql.Decimal, order.TotalAmount)
+            .input('TotalAmount', sql.Decimal(10,2), order.TotalAmount)
             .input('Status', sql.NVarChar, order.Status)
             .input('PaymentMethod', sql.NVarChar, order.PaymentMethod)
             .query("INSERT INTO [Order] (CustomerID, DeliveryBoyID, OrderDate, DeliveryDate, TotalAmount, Status, PaymentMethod) VALUES (@CustomerID, @DeliveryBoyID, @OrderDate, @DeliveryDate, @TotalAmount, @Status, @PaymentMethod)");
@@ -613,7 +613,7 @@ async function updateOrder(id, order) {
             .input('DeliveryBoyID', sql.Int, order.DeliveryBoyID)
             .input('OrderDate', sql.DateTime, order.OrderDate)
             .input('DeliveryDate', sql.DateTime, order.DeliveryDate)
-            .input('TotalAmount', sql.Decimal, order.TotalAmount)
+            .input('TotalAmount', sql.Decimal(10,2), order.TotalAmount)
             .input('Status', sql.NVarChar, order.Status)
             .input('PaymentMethod', sql.NVarChar, order.PaymentMethod)
             .query("UPDATE [Order] SET CustomerID = @CustomerID, DeliveryBoyID = @DeliveryBoyID, OrderDate = @OrderDate, DeliveryDate = @DeliveryDate, TotalAmount = @TotalAmount, Status = @Status, PaymentMethod = @PaymentMethod WHERE ID = @Id");
@@ -765,7 +765,7 @@ async function addOrderDetail(orderdetail) {
             .input('OrderID', sql.Int, orderdetail.OrderID)
             .input('FoodItemID', sql.Int, orderdetail.FoodItemID)
             .input('Quantity', sql.Int, orderdetail.Quantity)
-            .input('Price', sql.Decimal, orderdetail.Price)
+            .input('Price', sql.Decimal(10,2), orderdetail.Price)
             .query("INSERT INTO OrderDetails (OrderID, FoodItemID, Quantity, Price) VALUES (@OrderID, @FoodItemID, @Quantity, @Price)");
 
         return insertorderdetail.recordsets;
@@ -788,7 +788,7 @@ async function updateOrderDetail(OrderId, FoodItemId, orderdetail) {
             .input('OrderID', sql.Int, orderdetail.OrderID)
             .input('FoodItemID', sql.Int, orderdetail.FoodItemID)
             .input('Quantity', sql.Int, orderdetail.Quantity)
-            .input('Price', sql.Decimal, orderdetail.Price)
+            .input('Price', sql.Decimal(10,2), orderdetail.Price)
             .query("UPDATE OrderDetails SET OrderID = @OrderID, FoodItemID = @FoodItemID, Quantity = @Quantity, Price = @Price WHERE OrderID = @OrderId AND FoodItemID = @FoodItemId");
 
         return updateorderdetail.recordsets;
@@ -1093,11 +1093,14 @@ async function deleteReview(id) {
 
 async function takeOrder(order) {
 
+    console.log(order);
+    console.log(order.TotalAmount);
+
     try {
         let pool = await sql.connect(config);
         let insertorder = await pool.request()
             .input('CustomerID', sql.Int, order.CustomerID)
-            .input('TotalAmount', sql.Money, order.TotalAmount)
+            .input('TotalAmount', sql.Decimal(10,2), order.TotalAmount)
             .input('Status', sql.VarChar, order.Status)
             .input('PaymentMethod', sql.VarChar, order.PaymentMethod)
             .query("EXEC TakeOrder @CustomerID, @TotalAmount, @Status, @PaymentMethod");
