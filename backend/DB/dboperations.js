@@ -1058,7 +1058,7 @@ async function updateReview(id, review) {
             .input('Rating', sql.Int, review.Rating)
             .input('Comment', sql.VarChar, review.Comment)
             .input('ItemID', sql.Int, review.ItemID)
-            .query("UPDATE Review SET CustomerID = @CustomerID, Rating = @Rating, Comment = @Comment WHERE ID = @input_parameter");
+            .query("UPDATE Review SET CustomerID = @CustomerID, Rating = @Rating, Comment = @Comment, ItemID = @ItemID WHERE ID = @input_parameter");
 
         return updatereview.recordsets;
     }
