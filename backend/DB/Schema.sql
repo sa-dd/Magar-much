@@ -234,12 +234,12 @@ CREATE TABLE Review (
     CONSTRAINT CK_Review_Rating CHECK (Rating >= 1 AND Rating <= 5)
 );
 
-INSERT INTO Review (CustomerID, Rating, Comment, ReviewDate)
+INSERT INTO Review (CustomerID, Rating, ItemID, Comment, ReviewDate)
 VALUES 
 
-(1, 5, 'The food was delicious and the delivery was fast!', '2022-03-08 12:45:00'),
-(2, 4, 'The food was good, but the delivery was a little late.', '2022-03-08 14:30:00'),
-(3, 3, 'The food was okay, but the delivery was very late.', '2022-03-08 18:30:00');
+(1, 5, 1, 'The food was delicious and the delivery was fast!', '2022-03-08 12:45:00'),
+(2, 4, 2, 'The food was good, but the delivery was a little late.', '2022-03-08 14:30:00'),
+(3, 3, 3, 'The food was okay, but the delivery was very late.', '2022-03-08 18:30:00');
 
 
 
