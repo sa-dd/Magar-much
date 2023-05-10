@@ -261,6 +261,11 @@ SELECT
 --SELECT * FROM adminSummary;
 
 
+
+
+
+
+
 --------------------------------
 
 
@@ -458,6 +463,32 @@ END;
 -- insert into [Order] (CustomerID, DeliveryBoyID, OrderDate, TotalAmount, Status, PaymentMethod) values (1, 3, '2022-03-08 12:45:00', 27.97, 'Pending', 'Cash');
 
 
+-- TRIGGERS
+
+--write trigger to update deliveryboy delivery count when order is cancelled
+
+CREATE TRIGGER UpdateDeliveryBoyDeliveryCountOnCancel
+ON [Order]
+AFTER UPDATE
+AS
+
+BEGIN
+    SET NOCOUNT ON;
+    
+    DECLARE @DeliveryBoyID INT;
+    DECLARE @DeliveryCount INT;
+
+    SELECT @DeliveryBoyID = DeliveryBoyID FROM inserted;
+
+    SELECT @DeliveryCount = DeliveryCount FROM DeliveryBoy WHERE ID = @DeliveryBoyID;
+
+    UPDATE DeliveryBoy
+    SET DeliveryCount = @DeliveryCount - 1
+    WHERE ID = @DeliveryBoyID;
+
+END;
+
+--drop trigger UpdateDeliveryBoyDeliveryCountOnCancel;
 
 
 
@@ -488,6 +519,10 @@ INNER JOIN FoodItem ON OrderDetails.FoodItemID = FoodItem.ID
 INNER JOIN DeliveryBoy ON [Order].DeliveryBoyID = DeliveryBoy.ID
 INNER JOIN AreaCode ON DeliveryBoy.AreaCodeID = AreaCode.ID
 INNER JOIN Address AS DeliveryAddress ON Customer.ID = DeliveryAddress.CustomerID
+
+
+
+
 
 
 
@@ -535,3 +570,91 @@ SELECT
    CONNECTIONPROPERTY('local_net_address') AS local_net_address,
    CONNECTIONPROPERTY('local_tcp_port') AS local_tcp_port,
    CONNECTIONPROPERTY('client_net_address') AS client_net_address 
+
+
+
+--DUMM  
+
+-- TRIGGGERS DUMM
+
+--trigger to update deliveryboy delivery count when order is placed
+
+CREATE TRIGGER UpdateDeliveryBoyDeliveryCount
+ON [Order]
+AFTER INSERT
+AS
+
+BEGIN
+    SET NOCOUNT ON;
+    
+    DECLARE @DeliveryBoyID INT;
+    DECLARE @DeliveryCount INT;
+
+    SELECT @DeliveryBoyID = DeliveryBoyID FROM inserted;
+
+    SELECT @DeliveryCount = DeliveryCount FROM DeliveryBoy WHERE ID = @DeliveryBoyID;
+
+    UPDATE DeliveryBoy
+    SET DeliveryCount = @DeliveryCount + 1
+    WHERE ID = @DeliveryBoyID;
+
+END;
+
+--drop trigger UpdateDeliveryBoyDeliveryCount;
+
+
+
+
+
+--UDF DUMM
+
+-- UDF to find total amount of order
+
+CREATE FUNCTION GetTotalAmountOfOrder(@OrderID INT)
+RETURNS MONEY
+AS
+BEGIN
+    DECLARE @TotalAmount MONEY;
+
+    SELECT @TotalAmount = SUM(Price)
+    FROM OrderDetails
+    WHERE OrderID = @OrderID;
+
+    RETURN @TotalAmount;
+END;
+
+--select dbo.GetTotalAmountOfOrder(1);
+
+
+
+--INDEX DUMM
+
+
+--create INDEX on customer join address
+
+CREATE INDEX IX_Customer_Address ON Customer (ID, Name, Email, Phone, Password, AddressID, DeliveryAddressID);
+
+--drop index IX_Customer_Address on Customer;
+
+
+
+
+--VIEWS DUMM
+
+--create view to get customer summary
+
+CREATE VIEW CustomerSummary
+AS
+SELECT * FROM Customer
+INNER JOIN Address ON Customer.ID = Address.CustomerID
+INNER JOIN [Order] ON Customer.ID = [Order].CustomerID
+INNER JOIN OrderDetails ON [Order].ID = OrderDetails.OrderID
+INNER JOIN FoodItem ON OrderDetails.FoodItemID = FoodItem.ID
+INNER JOIN DeliveryBoy ON [Order].DeliveryBoyID = DeliveryBoy.ID
+INNER JOIN AreaCode ON DeliveryBoy.AreaCodeID = AreaCode.ID
+INNER JOIN Address AS DeliveryAddress ON Customer.ID = DeliveryAddress.CustomerID
+
+
+
+
+
