@@ -1033,7 +1033,8 @@ async function addReview(review) {
             .input('CustomerID', sql.Int, review.CustomerID)
             .input('Rating', sql.Int, review.Rating)
             .input('Comment', sql.VarChar, review.Comment)
-            .query("INSERT INTO Review (CustomerID, Rating, Comment) VALUES (@CustomerID, @Rating, @Comment)");
+            .input('ItemID', sql.Int, review.ItemID)
+            .query("INSERT INTO Review (CustomerID, Rating, Comment) VALUES (@CustomerID, @Rating, @Comment, @ItemID)");
 
         return insertreview.recordsets;
     }
@@ -1056,7 +1057,8 @@ async function updateReview(id, review) {
             .input('CustomerID', sql.Int, review.CustomerID)
             .input('Rating', sql.Int, review.Rating)
             .input('Comment', sql.VarChar, review.Comment)
-            .query("UPDATE Review SET CustomerID = @CustomerID, Rating = @Rating, Comment = @Comment WHERE ID = @input_parameter");
+            .input('ItemID', sql.Int, review.ItemID)
+            .query("UPDATE Review SET CustomerID = @CustomerID, Rating = @Rating, Comment = @Comment, ItemID = @ItemID WHERE ID = @input_parameter");
 
         return updatereview.recordsets;
     }
