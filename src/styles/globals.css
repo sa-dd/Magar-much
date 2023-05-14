@@ -1572,6 +1572,109 @@ input[type="radio"]:checked + label span{
 
 }
 
+.dashboard{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+    background-color: red;
+    height: 120vh;
+    align-items: center;
+}
+
+.arrow-back{
+    position: absolute;
+    left: 40px;
+    top: 40px;
+    transform: rotate(90deg);
+    background-color: black;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 50px;
+    padding-top: 8px;
+    transition: 0.3s;
+}
+
+.arrow-back:hover{
+    cursor: pointer;
+    background-color: blue;
+}
+
+.orderTable{
+    margin-top: 100px;
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    font-family: 'londrina';
+    font-weight: 800;
+    font-size: 30px;
+      border: 1px solid black;
+
+}
+
+.orderTable th{
+    background-color: white;
+    font-weight: 1000;
+}
+
+.orderTable th, td{
+    text-align: center;
+      border: 1px solid black;
+
+}
+
+.dash-title{
+    z-index: 6;
+    font-family: 'block-pro-regular';
+    font-size: 200px;
+    background-color: white;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.dash-tabs{
+    z-index: 7;
+    margin-top: 40px;
+}
+
+.dash-tabs button{
+
+    font-family: 'block-pro-regular';
+    background-color: black;
+    color: white;
+    border: solid;
+    width: 150px;
+    height: 90px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.cancel{
+    height: 60px;
+  font-family: 'block-pro-regular';
+    background-color: black;
+    color: white;
+    border: solid;
+    width: 150px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.cancel:hover{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    height: 60px;
+}
+
+.dash-tabs button:hover{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    width: 150px;
+    height: 90px;
+}
 .arrow {
     display: flex;
     flex-direction: column;

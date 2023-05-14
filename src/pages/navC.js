@@ -2,12 +2,11 @@ import { TextField, Typography} from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import Container from '@mui/material/Container'
 import {useEffect, useState} from 'react'
-import Modal from './modal'
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from 'next/router'
-import { BeatLoader } from 'react-spinners';
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
 
 const CssTextField = styled(TextField)({
@@ -42,6 +41,7 @@ export default function Nav(props){
     const [logged, setLogged] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
+    const router = useRouter()
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -54,7 +54,6 @@ export default function Nav(props){
     };
 
     const goToPage = ()=> {
-        const router = useRouter()
         router.push('/dashboard')
     }
 
@@ -180,6 +179,11 @@ export default function Nav(props){
                                 const user = JSON.stringify(cust);
 
                                 localStorage.setItem('user', user);
+                                setCookie(null, 'user', user , {
+                                    maxAge: 30 * 24 * 60 * 60,
+                                    path: './dashboard',
+                                })
+
                             }
                             else{
                                 console.log("Login failed")

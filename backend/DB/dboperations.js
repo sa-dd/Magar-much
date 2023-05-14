@@ -565,7 +565,7 @@ async function getOrder(OrderId) {
         let pool = await sql.connect(config);
         let order = await pool.request()
             .input('input_parameter', sql.Int, OrderId)
-            .query("SELECT * from [Order] where ID = @input_parameter");
+            .query("SELECT * from [Order] where CustomerID = @input_parameter");
         return order.recordsets;
 
     }
@@ -736,13 +736,13 @@ async function getOrderDetails() {
 
 //function to get an orderdetail by id
 
-async function getOrderDetail(OrderId, FoodItemId) {
+async function getOrderDetail(OrderId) {
     try {
         let pool = await sql.connect(config);
         let orderdetail = await pool.request()
             .input('OrderId', sql.Int, OrderId)
-            .input('FoodItemId', sql.Int, FoodItemId)
-            .query("SELECT * from OrderDetails where OrderID = @OrderId AND FoodItemID = @FoodItemId");
+
+            .query("SELECT * from OrderDetails where OrderID = @OrderId");
         return orderdetail.recordsets;
 
     }

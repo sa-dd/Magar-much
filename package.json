@@ -34,6 +34,7 @@
     "next": "13.2.4",
     "nodemon": "^2.0.21",
     "noisejs": "^2.1.0",
+    "nookies": "^2.5.2",
     "package.json": "^0.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

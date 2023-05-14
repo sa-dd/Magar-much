@@ -8,6 +8,7 @@ import { motion } from "framer-motion"
 import { width } from '@mui/system'
 import Draggable from 'react-draggable';
 import Image from 'next/image'
+import Nav from './navC'
 
 
 export async function getServerSideProps() {
