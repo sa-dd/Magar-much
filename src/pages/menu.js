@@ -51,10 +51,21 @@ export default function About(props) {
         );
         // Update the state of `total`
         setTotal(newTotal);
+
+        console.log(cartItemQuantity)
+
+        localStorage.setItem("cartList", JSON.stringify(cartItems));
+        localStorage.setItem("itemQuantity", JSON.stringify(cartItemQuantity));
+        localStorage.setItem("totalAmount", total);
     }, [cartItems, cartItemQuantity]);
 
     useEffect(() => {
         if(orderid){
+            localStorage.removeItem("cartList");
+            localStorage.removeItem("itemQuantity");
+            localStorage.removeItem("totalAmount");
+
+
             cartItems.map((item) => {
 
                 const food = {
@@ -83,9 +94,6 @@ export default function About(props) {
     }, [orderid])
 
     const handleClick = (key) => {
-        localStorage.removeItem("cartList");
-        localStorage.removeItem("itemQuantity");
-
         setChangeWidth(40)
         setMoveItems(-40);
         setScale(1);
@@ -100,8 +108,6 @@ export default function About(props) {
             [key]: (prevState[key] || 0) + 1, // increment quantity by 1 or set to 1 if undefined
         }));
         setShowCart(true);
-        localStorage.setItem("cartList", JSON.stringify(cartItems));
-        localStorage.setItem("itemQuantity", JSON.stringify(cartItemQuantity));
     }
 
     const handleOrder = () => {

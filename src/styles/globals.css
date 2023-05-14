@@ -1369,7 +1369,7 @@ input[type="radio"]:checked + label span{
 }
 
 .sum-item-cont{
-
+    position: relative;
     display: flex;
     flex-direction: column;
     max-height: 600px;
@@ -1385,7 +1385,14 @@ input[type="radio"]:checked + label span{
     display: none; /* hide the scrollbar on Webkit browsers */
 }
 
-
+.sum-item-q{
+    position: absolute;
+    font-family: 'londrina';
+    font-weight: 1000;
+    font-size: 30px;
+    left: 2%;
+    background-color: white;
+}
 
 .sum-item{
     display: flex;
@@ -1421,6 +1428,7 @@ input[type="radio"]:checked + label span{
 }
 
 .bill{
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 40%;
@@ -1483,14 +1491,87 @@ input[type="radio"]:checked + label span{
     width: 50%;
 }
 
-.total-title{
+.total{
+    display: flex;
+    flex-direction: column;
     margin-top: 50px;
     font-family: 'londrina';
+}
+
+.total-title{
     font-weight: 1000;
     text-decoration: underline;
     text-underline-offset: 4px;
     font-size: 40px;
 }
+
+.total-quantity{
+    font-size: 40px;
+    font-weight: 1000;
+    margin-top: 40px;
+    margin-left: 20px;
+}
+
+.checkout-btn{
+    position: absolute;
+    font-family: 'block-pro-regular';
+    background-color: black;
+    color: white;
+    width: 150px;
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    top: 85%;
+    left: 65%;
+    line-height: 23px;
+    transition: 0.7s;
+}
+
+.checkout-btn:hover{
+    background-color: white;
+    color: black;
+    width: 150px;
+    height: 65px;
+    cursor: pointer;
+}
+
+.success-page{
+    background-color: greenyellow;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-success{
+    font-family: "londrina";
+    font-size: 60px;
+    font-weight: 1000;
+}
+
+.back-btn{
+    background-color: black;
+    font-family: "block-pro-regular";
+    width: 150px;
+    height: 70px;
+    border-radius: 10px;
+    margin-top: 30px;
+    padding-top: 25px;
+    transition: 0.3s;
+    border: solid;
+    font-size: 20px;
+}
+
+.back-btn:hover{
+    cursor: pointer;
+    background-color: white;
+    color: black;
+
+}
+
 .arrow {
     display: flex;
     flex-direction: column;
