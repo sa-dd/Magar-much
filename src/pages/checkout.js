@@ -137,7 +137,7 @@ export default function Checkout(){
         <div className="total">
             <span className="total-title"> Your Total : </span>
             <span className="total-quantity">
-        $ {amount}
+        $ {amount.toFixed(2)}
     </span>
 
 </div>

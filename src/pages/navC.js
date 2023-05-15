@@ -42,7 +42,6 @@ export default function Nav(props){
     const [isLoading, setIsLoading] = useState(true);
 
     const router = useRouter()
-
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -124,7 +123,10 @@ export default function Nav(props){
                     localStorage.removeItem('user_data'); 
                     localStorage.removeItem('username');
                     localStorage.setItem('isLoggedIn', false);
-                    setLogged(false)}}> Logout</MenuItem>
+                    setLogged(false)
+                    router.reload();
+                }
+                }> Logout</MenuItem>
             </Menu>
 
         </div>) : (<button onClick={()=> setShowModal(!showModal)}>Sign In</button>)}
@@ -207,7 +209,7 @@ export default function Nav(props){
         <div className="nav-inner">
             <a className="nav-item" href="/menu">Menu</a>
             <a className="nav-item"href="/better">Better Food</a>
-            <a className="nav-item"href="/reviews">Find Us</a>
+            <a className="nav-item"href=" https://www.google.com/maps/place/Cheezious+-+Pattoki/@31.0238155,73.846164,17z/data=!3m1!4b1!4m6!3m5!1s0x391841da3378529d:0x75455da68de7b2b7!8m2!3d31.0238109!4d73.8487389!16s%2Fg%2F11bzx3zndx">Find Us</a>
             <a className="nav-item-spacer"href="/nana"></a>
             <a className="nav-item"href="https://discord.com/invite/samurai">Community</a>
             <a className="nav-item" href="/reviews">Reviews</a>
